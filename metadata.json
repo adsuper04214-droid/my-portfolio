@@ -1,0 +1,6 @@
+{
+  "name": "김도현 포트폴리오",
+  "description": "기획, 제작, 데이터 삼박자를 갖춘 AE 김도현의 포트폴리오 웹사이트입니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
