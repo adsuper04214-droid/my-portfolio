@@ -235,7 +235,7 @@ export default function App() {
                       <img 
                         src={profilePhoto} 
                         alt="김도현 프로필" 
-                        className="w-full h-full object-contain object-bottom scale-[1.3] origin-bottom select-none" 
+                        className="w-full h-full object-contain object-bottom scale-[1.05] origin-bottom select-none" 
                       />
                     </div>
                   </div>
