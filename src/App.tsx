@@ -231,11 +231,11 @@ export default function App() {
                 <div className="my-auto space-y-6">
                   {/* Profile Photo */}
                   <div className="flex justify-center">
-                    <div className="w-full h-56 rounded-2xl overflow-hidden relative border border-[#1d273a] shadow-inner bg-[#121B2C]">
+                    <div className="w-full h-64 rounded-2xl overflow-hidden relative border border-[#1d273a] shadow-inner bg-[#121B2C]">
                       <img 
                         src={profilePhoto} 
                         alt="김도현 프로필" 
-                        className="w-full h-full object-contain object-bottom scale-[1.05] origin-bottom select-none" 
+                        className="w-full h-full object-cover object-top scale-100 select-none" 
                       />
                     </div>
                   </div>
