@@ -49,17 +49,11 @@ import behindSlide1 from "./behind-slide1.png";
 import behindSlide2 from "./behind-slide2.png";
 import tlabSlide1 from "./tlab-slide1.png";
 import tlabSlide2 from "./tlab-slide2.png";
-import catchmeSlide1 from "./catchme-slide1.png";
-import catchmeSlide2 from "./catchme-slide2.png";
 
 export default function App() {
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [activeScreenxSlideIdx, setActiveScreenxSlideIdx] = useState(0);
-  const [activeBehindSlideIdx, setActiveBehindSlideIdx] = useState(0);
-  const [activeTlabSlideIdx, setActiveTlabSlideIdx] = useState(0);
-  const [activeCatchmeSlideIdx, setActiveCatchmeSlideIdx] = useState(0);
 
   const screenxSlides = [
     { image: screenxSlide1, title: "마케팅 제안서 표지" },
@@ -75,11 +69,6 @@ export default function App() {
   const tlabSlides = [
     { image: tlabSlide1, title: "인스타그램 릴스 상황극 업로드 및 상세 자막 캡처" },
     { image: tlabSlide2, title: "폰트티랩 공식 인스타그램 피드 릴스 발행 그리드" }
-  ];
-
-  const catchmeSlides = [
-    { image: catchmeSlide1, title: "전시 공식 홍보 영상 인트로 타이틀 그래픽" },
-    { image: catchmeSlide2, title: "오프라인 전시장 내 메인 전시월 브랜딩 그래픽" }
   ];
 
   // Helper to get project style
@@ -589,236 +578,83 @@ export default function App() {
                   {/* Simulated interactive visual card depending on project */}
                   <div className="my-auto py-4">
                     {curProject.id === "screenx-pt" && (
-                      <div className="space-y-4">
-                        {/* Slide Image Container */}
-                        <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
-                          <img 
-                            src={screenxSlides[activeScreenxSlideIdx].image} 
-                            alt={screenxSlides[activeScreenxSlideIdx].title} 
-                            className="w-full h-full object-cover select-none transition-all duration-300" 
-                          />
-                          
-                          {/* Navigation Chevrons */}
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveScreenxSlideIdx((prev) => (prev - 1 + screenxSlides.length) % screenxSlides.length);
-                            }}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveScreenxSlideIdx((prev) => (prev + 1) % screenxSlides.length);
-                            }}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-
-                          {/* Index indicator */}
-                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
-                            {activeScreenxSlideIdx + 1} / {screenxSlides.length}
-                          </div>
-                        </div>
-
-                        {/* Slide Title and Dots */}
-                        <div className="flex flex-col items-center space-y-2.5">
-                          <span className="text-xs font-semibold text-indigo-300 tracking-tight select-none">{screenxSlides[activeScreenxSlideIdx].title}</span>
-                          <div className="flex gap-1.5">
-                            {screenxSlides.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setActiveScreenxSlideIdx(idx);
-                                }}
-                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
-                                  activeScreenxSlideIdx === idx ? "bg-indigo-500 w-3" : "bg-slate-700"
-                                }`}
-                                aria-label={`Go to slide ${idx + 1}`}
+                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                        {screenxSlides.map((slide, idx) => (
+                          <div key={idx} className="space-y-2">
+                            <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
+                              <img 
+                                src={slide.image} 
+                                alt={slide.title} 
+                                className="w-full h-auto select-none block" 
                               />
-                            ))}
+                            </div>
+                            <p className="text-[10px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">{slide.title}</p>
                           </div>
-                        </div>
+                        ))}
                       </div>
                     )}
 
                     {curProject.id === "behind-the-ad" && (
-                      <div className="space-y-4">
-                        {/* Slide Image Container */}
-                        <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
-                          <img 
-                            src={behindSlides[activeBehindSlideIdx].image} 
-                            alt={behindSlides[activeBehindSlideIdx].title} 
-                            className="w-full h-full object-cover select-none transition-all duration-300" 
-                          />
-                          
-                          {/* Navigation Chevrons */}
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveBehindSlideIdx((prev) => (prev - 1 + behindSlides.length) % behindSlides.length);
-                            }}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveBehindSlideIdx((prev) => (prev + 1) % behindSlides.length);
-                            }}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-
-                          {/* Index indicator */}
-                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
-                            {activeBehindSlideIdx + 1} / {behindSlides.length}
-                          </div>
-                        </div>
-
-                        {/* Slide Title and Dots */}
-                        <div className="flex flex-col items-center space-y-2.5">
-                          <span className="text-xs font-semibold text-purple-300 tracking-tight text-center select-none leading-relaxed px-2">{behindSlides[activeBehindSlideIdx].title}</span>
-                          <div className="flex gap-1.5">
-                            {behindSlides.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setActiveBehindSlideIdx(idx);
-                                }}
-                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
-                                  activeBehindSlideIdx === idx ? "bg-purple-500 w-3" : "bg-slate-700"
-                                }`}
-                                aria-label={`Go to slide ${idx + 1}`}
+                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                        {behindSlides.map((slide, idx) => (
+                          <div key={idx} className="space-y-2">
+                            <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
+                              <img 
+                                src={slide.image} 
+                                alt={slide.title} 
+                                className="w-full h-auto select-none block" 
                               />
-                            ))}
+                            </div>
+                            <p className="text-[10px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">{slide.title}</p>
                           </div>
-                        </div>
+                        ))}
                       </div>
                     )}
 
                     {curProject.id === "tlab-reels" && (
-                      <div className="space-y-4">
-                        {/* Slide Image Container */}
-                        <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
-                          <img 
-                            src={tlabSlides[activeTlabSlideIdx].image} 
-                            alt={tlabSlides[activeTlabSlideIdx].title} 
-                            className="w-full h-full object-cover select-none transition-all duration-300" 
-                          />
-                          
-                          {/* Navigation Chevrons */}
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveTlabSlideIdx((prev) => (prev - 1 + tlabSlides.length) % tlabSlides.length);
-                            }}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveTlabSlideIdx((prev) => (prev + 1) % tlabSlides.length);
-                            }}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-
-                          {/* Index indicator */}
-                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
-                            {activeTlabSlideIdx + 1} / {tlabSlides.length}
-                          </div>
-                        </div>
-
-                        {/* Slide Title and Dots */}
-                        <div className="flex flex-col items-center space-y-2.5">
-                          <span className="text-xs font-semibold text-pink-300 tracking-tight text-center select-none leading-relaxed px-2">{tlabSlides[activeTlabSlideIdx].title}</span>
-                          <div className="flex gap-1.5">
-                            {tlabSlides.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setActiveTlabSlideIdx(idx);
-                                }}
-                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
-                                  activeTlabSlideIdx === idx ? "bg-pink-500 w-3" : "bg-slate-700"
-                                }`}
-                                aria-label={`Go to slide ${idx + 1}`}
+                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                        {tlabSlides.map((slide, idx) => (
+                          <div key={idx} className="space-y-2">
+                            <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
+                              <img 
+                                src={slide.image} 
+                                alt={slide.title} 
+                                className="w-full h-auto select-none block" 
                               />
-                            ))}
+                            </div>
+                            <p className="text-[10px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">{slide.title}</p>
                           </div>
-                        </div>
+                        ))}
                       </div>
                     )}
 
                     {curProject.id === "catchme-exhibition" && (
-                      <div className="space-y-4">
-                        {/* Slide Image Container */}
-                        <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
-                          <img 
-                            src={catchmeSlides[activeCatchmeSlideIdx].image} 
-                            alt={catchmeSlides[activeCatchmeSlideIdx].title} 
-                            className="w-full h-full object-cover select-none transition-all duration-300" 
-                          />
-                          
-                          {/* Navigation Chevrons */}
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveCatchmeSlideIdx((prev) => (prev - 1 + catchmeSlides.length) % catchmeSlides.length);
-                            }}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveCatchmeSlideIdx((prev) => (prev + 1) % catchmeSlides.length);
-                            }}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-
-                          {/* Index indicator */}
-                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
-                            {activeCatchmeSlideIdx + 1} / {catchmeSlides.length}
+                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                        <div className="space-y-2">
+                          <p className="text-[11px] font-semibold text-emerald-300">🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』</p>
+                          <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                            <iframe
+                              className="w-full h-full"
+                              src="https://www.youtube.com/embed/pb_rGpxlAL8"
+                              title="제37회 애드파워 전시회 『캐취미 : 취미를 쫓아 사라진 나를 찾다』"
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                            ></iframe>
                           </div>
                         </div>
 
-                        {/* Slide Title and Dots */}
-                        <div className="flex flex-col items-center space-y-2.5">
-                          <span className="text-xs font-semibold text-emerald-300 tracking-tight text-center select-none leading-relaxed px-2">{catchmeSlides[activeCatchmeSlideIdx].title}</span>
-                          <div className="flex gap-1.5">
-                            {catchmeSlides.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setActiveCatchmeSlideIdx(idx);
-                                }}
-                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
-                                  activeCatchmeSlideIdx === idx ? "bg-emerald-500 w-3" : "bg-slate-700"
-                                }`}
-                                aria-label={`Go to slide ${idx + 1}`}
-                              />
-                            ))}
+                        <div className="space-y-2">
+                          <p className="text-[11px] font-semibold text-emerald-300">🎬 에필로그 인터뷰: 『캐취미 Epilogue : 거리 너머의 두번째 이야기』</p>
+                          <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                            <iframe
+                              className="w-full h-full"
+                              src="https://www.youtube.com/embed/nkl38NVh6nM"
+                              title="『캐취미 Epilogue : 거리 너머의 두번째 이야기』"
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                            ></iframe>
                           </div>
                         </div>
                       </div>
