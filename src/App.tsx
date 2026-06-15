@@ -42,11 +42,45 @@ import {
 } from "./data";
 import { ProjectData } from "./types";
 import profilePhoto from "./profile.png";
+import screenxSlide1 from "./screenx-slide1.png";
+import screenxSlide2 from "./screenx-slide2.png";
+import screenxSlide3 from "./screenx-slide3.png";
+import behindSlide1 from "./behind-slide1.png";
+import behindSlide2 from "./behind-slide2.png";
+import tlabSlide1 from "./tlab-slide1.png";
+import tlabSlide2 from "./tlab-slide2.png";
+import catchmeSlide1 from "./catchme-slide1.png";
+import catchmeSlide2 from "./catchme-slide2.png";
 
 export default function App() {
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [activeScreenxSlideIdx, setActiveScreenxSlideIdx] = useState(0);
+  const [activeBehindSlideIdx, setActiveBehindSlideIdx] = useState(0);
+  const [activeTlabSlideIdx, setActiveTlabSlideIdx] = useState(0);
+  const [activeCatchmeSlideIdx, setActiveCatchmeSlideIdx] = useState(0);
+
+  const screenxSlides = [
+    { image: screenxSlide1, title: "마케팅 제안서 표지" },
+    { image: screenxSlide2, title: "컨셉 제안 - NO EXIT 경고판" },
+    { image: screenxSlide3, title: "CGV 앱/웹 팝업 배너 시안" }
+  ];
+
+  const behindSlides = [
+    { image: behindSlide1, title: "퍼스널 브랜딩 소개페이지 & 인스타그램 채널 시안" },
+    { image: behindSlide2, title: "인스타그램 숏폼/릴스 기획 및 발행 썸네일 그리드" }
+  ];
+
+  const tlabSlides = [
+    { image: tlabSlide1, title: "인스타그램 릴스 상황극 업로드 및 상세 자막 캡처" },
+    { image: tlabSlide2, title: "폰트티랩 공식 인스타그램 피드 릴스 발행 그리드" }
+  ];
+
+  const catchmeSlides = [
+    { image: catchmeSlide1, title: "전시 공식 홍보 영상 인트로 타이틀 그래픽" },
+    { image: catchmeSlide2, title: "오프라인 전시장 내 메인 전시월 브랜딩 그래픽" }
+  ];
 
   // Helper to get project style
   const getThemeColors = (category: string) => {
@@ -186,17 +220,17 @@ export default function App() {
 
           {/* Hero Right Visual Layout: Smart professional showcase without holding camera */}
           <div className="lg:col-span-5 flex justify-center" id="hero_visual_container">
-            <div className="relative w-full max-w-sm aspect-square">
+            <div className="relative w-full max-w-sm aspect-[3/4]">
               {/* Outer Glow Circles */}
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-300/20 via-indigo-300/15 to-purple-400/20 rounded-full blur-3xl -z-10" />
               
               {/* Profile Card Mockup */}
-              <div className="w-full h-full bg-slate-900 rounded-3xl p-6 shadow-2xl flex flex-col justify-between text-white border border-slate-800 relative z-10 overflow-hidden">
+              <div className="w-full h-full bg-[#121B2C] rounded-3xl p-6 shadow-2xl flex flex-col justify-between text-white border border-[#1d273a] relative z-10 overflow-hidden">
                 {/* Visual Accent Overlay */}
                 <div className="absolute -top-12 -right-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-xl pointer-events-none" />
                 <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-purple-500/10 rounded-full blur-xl pointer-events-none" />
 
-                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div className="flex items-center justify-between border-b border-[#1d273a] pb-4">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -208,29 +242,27 @@ export default function App() {
                 <div className="my-auto space-y-6">
                   {/* Profile Photo */}
                   <div className="flex justify-center">
-                    <div className="w-24 h-24 rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 p-1 shadow-lg shadow-indigo-500/20 flex items-center justify-center overflow-hidden">
-                      <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center overflow-hidden relative">
-                        <img 
-                          src={profilePhoto} 
-                          alt="김도현 프로필" 
-                          className="w-full h-full object-cover object-top scale-110" 
-                        />
-                      </div>
+                    <div className="w-full h-56 rounded-2xl overflow-hidden relative border border-[#1d273a] shadow-inner bg-[#121B2C]">
+                      <img 
+                        src={profilePhoto} 
+                        alt="김도현 프로필" 
+                        className="w-full h-full object-cover object-top scale-100" 
+                      />
                     </div>
                   </div>
 
-                  <div className="text-center space-y-1">
-                    <h3 className="text-xl font-bold font-title">김도현</h3>
+                  <div className="text-center space-y-2">
+                    <h3 className="text-2xl font-bold font-title">김도현</h3>
                     <p className="text-xs text-slate-400 font-mono">Dohyeon Kim / 2001.04.21</p>
                     <div className="pt-2 flex flex-wrap justify-center gap-1.5">
-                      <span className="text-[10px] tracking-tight bg-slate-800 text-blue-300 px-2 py-0.5 rounded border border-blue-900/40">기획전략 STRATEGY</span>
-                      <span className="text-[10px] tracking-tight bg-slate-800 text-purple-300 px-2 py-0.5 rounded border border-purple-900/40">생산제작 CONTENT</span>
-                      <span className="text-[10px] tracking-tight bg-slate-800 text-emerald-300 px-2 py-0.5 rounded border border-emerald-900/40">데이터 GA4</span>
+                      <span className="text-[10px] tracking-tight bg-slate-800/80 text-blue-300 px-2 py-0.5 rounded border border-blue-900/40">기획전략 STRATEGY</span>
+                      <span className="text-[10px] tracking-tight bg-slate-800/80 text-purple-300 px-2 py-0.5 rounded border border-purple-900/40">생산제작 CONTENT</span>
+                      <span className="text-[10px] tracking-tight bg-slate-800/80 text-emerald-300 px-2 py-0.5 rounded border border-emerald-900/40">데이터 GA4</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t border-slate-800 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div className="border-t border-[#1d273a] pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
                   <span>SHINHAN UNIV</span>
                   <span className="text-slate-500">● ACTIVE</span>
                 </div>
@@ -557,79 +589,236 @@ export default function App() {
                   {/* Simulated interactive visual card depending on project */}
                   <div className="my-auto py-4">
                     {curProject.id === "screenx-pt" && (
-                      <div className="space-y-4 text-center">
-                        <div className="inline-flex bg-slate-800 p-2.5 rounded-xl border border-slate-700/80 mb-2">
-                          <span className="text-xs uppercase font-extrabold tracking-widest text-indigo-300 font-title">에이리언: 로물루스</span>
-                        </div>
-                        <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col items-center justify-center space-y-2 relative overflow-hidden">
-                          {/* Simulated 3-screen format layout lines */}
-                          <div className="absolute top-1 right-2 text-[8px] font-mono text-slate-600">SCREENX 3-PLANE FORMAT</div>
-                          <div className="flex gap-1.5 w-full h-12 pt-2.5">
-                            <div className="bg-slate-900/60 border border-slate-800 rounded w-1/4 flex items-center justify-center text-[7px] text-slate-500 font-mono">LEFT</div>
-                            <div className="bg-gradient-to-b from-red-950/80 to-slate-900 border border-red-900/50 rounded w-2/4 flex items-center justify-center text-[8px] text-red-400 font-extrabold font-title uppercase tracking-widest">NO EXIT</div>
-                            <div className="bg-slate-900/60 border border-slate-800 rounded w-1/4 flex items-center justify-center text-[7px] text-slate-500 font-mono">RIGHT</div>
+                      <div className="space-y-4">
+                        {/* Slide Image Container */}
+                        <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
+                          <img 
+                            src={screenxSlides[activeScreenxSlideIdx].image} 
+                            alt={screenxSlides[activeScreenxSlideIdx].title} 
+                            className="w-full h-full object-cover select-none transition-all duration-300" 
+                          />
+                          
+                          {/* Navigation Chevrons */}
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveScreenxSlideIdx((prev) => (prev - 1 + screenxSlides.length) % screenxSlides.length);
+                            }}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveScreenxSlideIdx((prev) => (prev + 1) % screenxSlides.length);
+                            }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+
+                          {/* Index indicator */}
+                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
+                            {activeScreenxSlideIdx + 1} / {screenxSlides.length}
                           </div>
-                          <span className="text-xs text-slate-400 leading-normal font-sans pt-1">영화관 3면 활용 극도의 공포감 유발 공간 연출</span>
+                        </div>
+
+                        {/* Slide Title and Dots */}
+                        <div className="flex flex-col items-center space-y-2.5">
+                          <span className="text-xs font-semibold text-indigo-300 tracking-tight select-none">{screenxSlides[activeScreenxSlideIdx].title}</span>
+                          <div className="flex gap-1.5">
+                            {screenxSlides.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveScreenxSlideIdx(idx);
+                                }}
+                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                                  activeScreenxSlideIdx === idx ? "bg-indigo-500 w-3" : "bg-slate-700"
+                                }`}
+                                aria-label={`Go to slide ${idx + 1}`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {curProject.id === "behind-the-ad" && (
                       <div className="space-y-4">
-                        <div className="flex justify-between items-center bg-slate-950/80 p-3 rounded-lg border border-slate-800 text-xs">
-                          <span className="text-slate-400 uppercase font-mono">Profile Page Bounce Rate</span>
-                          <span className="text-rose-400 font-bold font-mono">88% ➡️ 21%</span>
+                        {/* Slide Image Container */}
+                        <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
+                          <img 
+                            src={behindSlides[activeBehindSlideIdx].image} 
+                            alt={behindSlides[activeBehindSlideIdx].title} 
+                            className="w-full h-full object-cover select-none transition-all duration-300" 
+                          />
+                          
+                          {/* Navigation Chevrons */}
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveBehindSlideIdx((prev) => (prev - 1 + behindSlides.length) % behindSlides.length);
+                            }}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveBehindSlideIdx((prev) => (prev + 1) % behindSlides.length);
+                            }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+
+                          {/* Index indicator */}
+                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
+                            {activeBehindSlideIdx + 1} / {behindSlides.length}
+                          </div>
                         </div>
-                        <div className="flex justify-between items-center bg-slate-950/80 p-3 rounded-lg border border-slate-800 text-xs">
-                          <span className="text-slate-400 uppercase font-mono">Micro-messaging refinement</span>
-                          <span className="text-emerald-400 font-bold font-mono">4-Stage Copy Washing</span>
-                        </div>
-                        <div className="flex justify-between items-center bg-slate-950/80 p-3 rounded-lg border border-slate-800 text-xs">
-                          <span className="text-slate-400 uppercase font-mono">Optimal Posting Hour</span>
-                          <span className="text-indigo-400 font-bold font-mono">Friday 23:00 (+41%)</span>
+
+                        {/* Slide Title and Dots */}
+                        <div className="flex flex-col items-center space-y-2.5">
+                          <span className="text-xs font-semibold text-purple-300 tracking-tight text-center select-none leading-relaxed px-2">{behindSlides[activeBehindSlideIdx].title}</span>
+                          <div className="flex gap-1.5">
+                            {behindSlides.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveBehindSlideIdx(idx);
+                                }}
+                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                                  activeBehindSlideIdx === idx ? "bg-purple-500 w-3" : "bg-slate-700"
+                                }`}
+                                aria-label={`Go to slide ${idx + 1}`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {curProject.id === "tlab-reels" && (
-                      <div className="space-y-3">
-                        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-pink-950 text-pink-400 border border-pink-900 flex items-center justify-center">
-                            <span className="font-title font-extrabold text-sm">TL</span>
-                          </div>
-                          <div>
-                            <p className="text-xs font-bold font-sans text-slate-100">"얘들아 선배가 폰트 이거 쓰랩"</p>
-                            <p className="text-[10px] text-slate-400 font-sans">대학생 공감 빌드업 상황극 숏폼 릴스</p>
+                      <div className="space-y-4">
+                        {/* Slide Image Container */}
+                        <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
+                          <img 
+                            src={tlabSlides[activeTlabSlideIdx].image} 
+                            alt={tlabSlides[activeTlabSlideIdx].title} 
+                            className="w-full h-full object-cover select-none transition-all duration-300" 
+                          />
+                          
+                          {/* Navigation Chevrons */}
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveTlabSlideIdx((prev) => (prev - 1 + tlabSlides.length) % tlabSlides.length);
+                            }}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveTlabSlideIdx((prev) => (prev + 1) % tlabSlides.length);
+                            }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+
+                          {/* Index indicator */}
+                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
+                            {activeTlabSlideIdx + 1} / {tlabSlides.length}
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 text-center">
-                          <div className="bg-slate-950 p-2 border border-slate-800 rounded font-mono">
-                            <p className="text-[9px] text-slate-500">PLAYBACKS</p>
-                            <p className="text-xs font-bold text-pink-400">2,000+ VIEWS</p>
-                          </div>
-                          <div className="bg-slate-950 p-2 border border-slate-800 rounded font-mono">
-                            <p className="text-[9px] text-slate-500">CONVERSION</p>
-                            <p className="text-xs font-bold text-slate-200">+20 FOLLOWER</p>
+
+                        {/* Slide Title and Dots */}
+                        <div className="flex flex-col items-center space-y-2.5">
+                          <span className="text-xs font-semibold text-pink-300 tracking-tight text-center select-none leading-relaxed px-2">{tlabSlides[activeTlabSlideIdx].title}</span>
+                          <div className="flex gap-1.5">
+                            {tlabSlides.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveTlabSlideIdx(idx);
+                                }}
+                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                                  activeTlabSlideIdx === idx ? "bg-pink-500 w-3" : "bg-slate-700"
+                                }`}
+                                aria-label={`Go to slide ${idx + 1}`}
+                              />
+                            ))}
                           </div>
                         </div>
                       </div>
                     )}
 
                     {curProject.id === "catchme-exhibition" && (
-                      <div className="space-y-3">
-                        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center space-y-2">
-                          <span className="text-xs font-title font-extrabold text-indigo-400 tracking-wider">제37회 애드파워 정기전시회 </span>
-                          <span className="text-xl font-black font-title text-slate-100 tracking-tight">『캐취미』</span>
-                          <span className="text-[10px] text-slate-500">- 취미를 쫓아 사라진 나를 찾는 영상 서사 -</span>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2 text-center">
-                          <div className="bg-slate-800/60 p-2.5 rounded text-xs">
-                            <p className="text-slate-400 text-[9px] font-mono">SATISFACTION</p>
-                            <p className="font-bold text-emerald-400">95% RATING</p>
+                      <div className="space-y-4">
+                        {/* Slide Image Container */}
+                        <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-slate-850 bg-slate-950 shadow-inner group">
+                          <img 
+                            src={catchmeSlides[activeCatchmeSlideIdx].image} 
+                            alt={catchmeSlides[activeCatchmeSlideIdx].title} 
+                            className="w-full h-full object-cover select-none transition-all duration-300" 
+                          />
+                          
+                          {/* Navigation Chevrons */}
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveCatchmeSlideIdx((prev) => (prev - 1 + catchmeSlides.length) % catchmeSlides.length);
+                            }}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveCatchmeSlideIdx((prev) => (prev + 1) % catchmeSlides.length);
+                            }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950/85 hover:bg-slate-900 text-white p-1.5 rounded-full border border-slate-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+
+                          {/* Index indicator */}
+                          <div className="absolute bottom-2 right-2 bg-slate-950/70 text-slate-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-800 select-none z-20">
+                            {activeCatchmeSlideIdx + 1} / {catchmeSlides.length}
                           </div>
-                          <div className="bg-slate-800/60 p-2.5 rounded text-xs">
-                            <p className="text-slate-400 text-[9px] font-mono">VIRAL TRAFFIC</p>
-                            <p className="font-bold text-slate-100">11,000+ PLAYS</p>
+                        </div>
+
+                        {/* Slide Title and Dots */}
+                        <div className="flex flex-col items-center space-y-2.5">
+                          <span className="text-xs font-semibold text-emerald-300 tracking-tight text-center select-none leading-relaxed px-2">{catchmeSlides[activeCatchmeSlideIdx].title}</span>
+                          <div className="flex gap-1.5">
+                            {catchmeSlides.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveCatchmeSlideIdx(idx);
+                                }}
+                                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                                  activeCatchmeSlideIdx === idx ? "bg-emerald-500 w-3" : "bg-slate-700"
+                                }`}
+                                aria-label={`Go to slide ${idx + 1}`}
+                              />
+                            ))}
                           </div>
                         </div>
                       </div>
