@@ -20,7 +20,9 @@ export interface ProjectData {
   challenge?: string;
   insight?: string;
   action?: string;
+  aiUtilization?: string;
   result?: string;
+  businessValue?: string;
   metrics: Metric[];
   period: string;
   role: string;

@@ -173,18 +173,18 @@ export default function App() {
 
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.3] text-slate-900 tracking-tight font-title" id="main_title">
-                생각에 머물던 기획을 <br />
+                기획, 제작, 데이터의 삼박자를 갖춰 <br />
                 <span className="relative inline-block text-slate-950 whitespace-nowrap">
-                  소비자의 움직임으로,
+                  비즈니스 임팩트를 만드는
                 </span> <br />
-                인식이 바뀌는 지점을 설계하는 <br />
+                실전형 올라운더, <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
                   AE 김도현입니다.
                 </span>
               </h1>
 
               <p className="text-slate-600 text-base lg:text-lg leading-relaxed font-sans max-w-2xl font-light" id="sub_brief">
-                아이디어만 던지는 기획자가 아닙니다. 광고 분석 채널을 직접 키우며 대중의 반응을 지표로 목격했고, 콘텐츠를 만들 줄 알기에 기획단계부터 실무 프로세스를 이해하며, GA4로 캠페인의 성과를 추적합니다. 기획, 제작, 데이터의 삼박자를 갖춘 실전형 올라운더 AE 김도현입니다.
+                소비자의 심리적 장벽을 분석하고, 데이터로 증명하며, 행동을 이끌어내는 인식을 설계합니다.
               </p>
             </div>
 
@@ -522,15 +522,38 @@ export default function App() {
                       </div>
                     )}
 
+                    {/* AI Utilization block */}
+                    {curProject.aiUtilization && (
+                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-mono">AI 활용</span>
+                        </div>
+                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
+                          {curProject.aiUtilization}
+                        </p>
+                      </div>
+                    )}
+
                     {/* Result block */}
                     {curProject.result && (
-                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                      <div className="space-y-1.5 bg-white/60 p-4 rounded-xl border border-slate-200/40">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-mono">RESULT</span>
                         </div>
-                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-semibold">
-                          {curProject.result}
-                        </p>
+                        {curProject.businessValue ? (
+                          <div className="space-y-2 text-slate-700 text-xs sm:text-sm font-sans">
+                            <div className="leading-relaxed">
+                              <span className="font-bold text-slate-900">성과:</span> {curProject.result}
+                            </div>
+                            <div className="leading-relaxed border-t border-slate-200/50 pt-1.5">
+                              <span className="font-bold text-slate-900">비즈니스 가치:</span> {curProject.businessValue}
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-semibold">
+                            {curProject.result}
+                          </p>
+                        )}
                       </div>
                     )}
 
@@ -846,6 +869,28 @@ export default function App() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* [왜 이 툴을 썼는가?] Section */}
+            <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3">
+              <p className="text-[10px] font-extrabold font-mono text-slate-400 uppercase tracking-widest">[왜 이 툴을 썼는가?]</p>
+              <p className="text-[11px] font-mono text-slate-400 leading-normal">
+                Used Tools: Notion, ChatGPT, Photoshop, Figma, Premiere Pro, Claude, Google Analytics 4
+              </p>
+              <div className="space-y-2 text-xs text-slate-600 font-sans leading-relaxed">
+                <div>
+                  <span className="font-bold text-slate-800">[기획/전략] ChatGPT/Claude:</span> <br/>
+                  데이터 분석 및 타깃 페르소나 인사이트 도출로 기획 논리 강화
+                </div>
+                <div className="border-t border-slate-200/60 pt-2">
+                  <span className="font-bold text-slate-800">[제작/디자인] PS/Figma/Premiere:</span> <br/>
+                  커뮤니케이션 비용 최소화 및 제작물 퀄리티 컨트롤
+                </div>
+                <div className="border-t border-slate-200/60 pt-2">
+                  <span className="font-bold text-slate-800">[데이터/성과] GA4:</span> <br/>
+                  유저 여정 추적 및 퍼포먼스 수치 검증
+                </div>
+              </div>
             </div>
 
             {/* Certifications Block */}
