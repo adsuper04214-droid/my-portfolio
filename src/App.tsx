@@ -58,7 +58,7 @@ const renderHighlightedText = (text: string, colorClass: string, isColorActive: 
       {lines.map((line, lIdx) => {
         const parts = line.split(/\{([^}]+)\}/g);
         return (
-          <span key={lIdx} className="block leading-relaxed tracking-wide" style={{ fontSize: "13pt", letterSpacing: "0.03em" }}>
+          <span key={lIdx} className="block leading-relaxed tracking-wide" style={{ fontSize: "11pt", letterSpacing: "0.03em" }}>
             {parts.map((part, index) => {
               if (index % 2 === 1) {
                 return (
@@ -500,11 +500,11 @@ export default function App() {
                   {/* Title & Subtitle */}
                   <div>
                     {curProject.id === "screenx-pt" && (
-                      <div className="font-extrabold text-blue-600 tracking-tight mb-1.5" style={{ fontSize: '20pt' }}>
+                      <div className="font-extrabold text-blue-600 tracking-tight mb-1.5" style={{ fontSize: '15pt' }}>
                         🏆 대상 수상 (평가단 만장일치)
                       </div>
                     )}
-                    <h3 className="font-extrabold text-slate-950 font-title tracking-tight leading-snug" style={{ fontSize: '26pt' }}>
+                    <h3 className="font-extrabold text-slate-950 font-title tracking-tight leading-snug" style={{ fontSize: '21pt' }}>
                       {curProject.title}
                     </h3>
                     <p className={`text-base font-semibold mt-2 font-sans ${curProjColors.primary}`} style={{ letterSpacing: '0.02em' }}>
@@ -633,7 +633,7 @@ export default function App() {
                   {/* Simulated interactive visual card depending on project */}
                   <div className="my-auto py-4">
                     {curProject.id === "screenx-pt" && (
-                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                      <div className="flex flex-col gap-4">
                         {screenxSlides.map((slide, idx) => (
                           <div key={idx} className="space-y-2">
                             <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
@@ -650,7 +650,7 @@ export default function App() {
                     )}
 
                     {curProject.id === "behind-the-ad" && (
-                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                      <div className="flex flex-col gap-4">
                         {behindSlides.map((slide, idx) => (
                           <div key={idx} className="space-y-2">
                             <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
@@ -667,7 +667,7 @@ export default function App() {
                     )}
 
                     {curProject.id === "tlab-reels" && (
-                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                      <div className="flex flex-col gap-4">
                         {tlabSlides.map((slide, idx) => (
                           <div key={idx} className="space-y-2">
                             <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
@@ -684,7 +684,7 @@ export default function App() {
                     )}
 
                     {curProject.id === "catchme-exhibition" && (
-                      <div className="flex flex-col gap-5 max-h-[420px] overflow-y-auto pr-1.5 scrollbar-custom">
+                      <div className="flex flex-col gap-4">
                         <div className="space-y-2">
                           <p className="text-[11px] font-semibold text-emerald-300">🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』</p>
                           <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
