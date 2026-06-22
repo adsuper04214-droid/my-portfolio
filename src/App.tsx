@@ -719,11 +719,11 @@ export default function App() {
                   {/* Quantitative Chips */}
                   <div className="space-y-2.5 pt-4 border-t border-slate-800">
                     <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest text-center">KEY PROJECT INSIGHT METRIC</p>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       {curProject.metrics.map(met => (
-                        <div key={met.label} className="bg-slate-950 border border-slate-800 rounded p-3 text-center flex flex-col justify-center">
-                          <p className="text-[9px] text-slate-400 font-sans truncate mb-0.5">{met.label}</p>
-                          <p className="font-bold text-slate-100 truncate font-title leading-tight" style={{ fontSize: '18pt' }}>{met.value}</p>
+                        <div key={met.label} className="bg-slate-950 border border-slate-800 rounded p-2.5 text-center">
+                          <p className="text-[10px] text-slate-400 font-sans truncate">{met.label}</p>
+                          <p className="text-sm font-black text-slate-100 truncate font-title">{met.value}</p>
                         </div>
                       ))}
                     </div>
