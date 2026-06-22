@@ -50,6 +50,32 @@ import behindSlide2 from "./behind-slide2.png";
 import tlabSlide1 from "./tlab-slide1.png";
 import tlabSlide2 from "./tlab-slide2.png";
 
+const renderHighlightedText = (text: string, colorClass: string, isColorActive: boolean = false) => {
+  if (!text) return null;
+  const lines = text.split("\n");
+  return (
+    <span className="block space-y-2">
+      {lines.map((line, lIdx) => {
+        const parts = line.split(/\{([^}]+)\}/g);
+        return (
+          <span key={lIdx} className="block leading-relaxed tracking-wide" style={{ fontSize: "13pt", letterSpacing: "0.03em" }}>
+            {parts.map((part, index) => {
+              if (index % 2 === 1) {
+                return (
+                  <span key={index} className={`font-black ${isColorActive ? colorClass : "text-slate-950"}`}>
+                    {part}
+                  </span>
+                );
+              }
+              return part;
+            })}
+          </span>
+        );
+      })}
+    </span>
+  );
+};
+
 export default function App() {
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
@@ -473,10 +499,15 @@ export default function App() {
 
                   {/* Title & Subtitle */}
                   <div>
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 font-title tracking-tight leading-snug">
+                    {curProject.id === "screenx-pt" && (
+                      <div className="font-extrabold text-blue-600 tracking-tight mb-1.5" style={{ fontSize: '20pt' }}>
+                        🏆 대상 수상 (평가단 만장일치)
+                      </div>
+                    )}
+                    <h3 className="font-extrabold text-slate-950 font-title tracking-tight leading-snug" style={{ fontSize: '26pt' }}>
                       {curProject.title}
                     </h3>
-                    <p className={`text-base font-semibold mt-1.5 font-sans ${curProjColors.primary}`}>
+                    <p className={`text-base font-semibold mt-2 font-sans ${curProjColors.primary}`} style={{ letterSpacing: '0.02em' }}>
                       {curProject.subtitle}
                     </p>
                   </div>
@@ -484,79 +515,80 @@ export default function App() {
                   <div className="pt-2 border-b border-slate-200/50 pb-4" />
 
                   {/* Scenario Breakdown */}
-                  <div className="space-y-5 pt-2">
+                  <div className="space-y-8 pt-3">
                     
                     {/* Challenge block */}
                     {curProject.challenge && (
-                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-mono">CHALLENGE</span>
                         </div>
-                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
-                          {curProject.challenge}
-                        </p>
+                        <div className="text-slate-700">
+                          {renderHighlightedText(curProject.challenge, curProjColors.primary, false)}
+                        </div>
                       </div>
                     )}
 
                     {/* Insight block */}
                     {curProject.insight && (
-                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded font-mono">INSIGHT</span>
                         </div>
-                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
-                          {curProject.insight}
-                        </p>
+                        <div className="text-slate-700">
+                          {renderHighlightedText(curProject.insight, curProjColors.primary, false)}
+                        </div>
                       </div>
                     )}
 
                     {/* Action block */}
                     {curProject.action && (
-                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-mono">ACTION</span>
                         </div>
-                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
-                          {curProject.action}
-                        </p>
+                        <div className="text-slate-700">
+                          {renderHighlightedText(curProject.action, curProjColors.primary, false)}
+                        </div>
                       </div>
                     )}
 
                     {/* AI Utilization block */}
                     {curProject.aiUtilization && (
-                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-mono">AI 활용</span>
                         </div>
-                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
-                          {curProject.aiUtilization}
-                        </p>
+                        <div className="text-slate-700">
+                          {renderHighlightedText(curProject.aiUtilization, curProjColors.primary, false)}
+                        </div>
                       </div>
                     )}
 
                     {/* Result block */}
                     {curProject.result && (
-                      <div className="space-y-1.5 bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                      <div className="space-y-3 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-mono">RESULT</span>
                         </div>
                         {curProject.businessValue ? (
-                          <div className="space-y-2 text-slate-700 text-xs sm:text-sm font-sans">
+                          <div className="space-y-3.5 text-slate-700 font-sans">
                             <div className="leading-relaxed">
-                              <span className="font-bold text-slate-900">성과:</span> {curProject.result}
+                              <span className="font-bold text-slate-900 block mb-1 text-[11px] font-mono tracking-wider text-slate-400">성과</span>
+                              {renderHighlightedText(curProject.result, curProjColors.primary, true)}
                             </div>
-                            <div className="leading-relaxed border-t border-slate-200/50 pt-1.5">
-                              <span className="font-bold text-slate-900">비즈니스 가치:</span> {curProject.businessValue}
+                            <div className="leading-relaxed border-t border-slate-200/50 pt-3">
+                              <span className="font-bold text-slate-900 block mb-1 text-[11px] font-mono tracking-wider text-slate-400">비즈니스 가치</span>
+                              {renderHighlightedText(curProject.businessValue, curProjColors.primary, true)}
                             </div>
                           </div>
                         ) : (
-                          <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-semibold">
-                            {curProject.result}
-                          </p>
+                          <div className="text-slate-700">
+                            {renderHighlightedText(curProject.result, curProjColors.primary, true)}
+                          </div>
                         )}
                       </div>
                     )}
-
                   </div>
                 </div>
 
@@ -687,11 +719,11 @@ export default function App() {
                   {/* Quantitative Chips */}
                   <div className="space-y-2.5 pt-4 border-t border-slate-800">
                     <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest text-center">KEY PROJECT INSIGHT METRIC</p>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-3 gap-2">
                       {curProject.metrics.map(met => (
-                        <div key={met.label} className="bg-slate-950 border border-slate-800 rounded p-2.5 text-center">
-                          <p className="text-[10px] text-slate-400 font-sans truncate">{met.label}</p>
-                          <p className="text-sm font-black text-slate-100 truncate font-title">{met.value}</p>
+                        <div key={met.label} className="bg-slate-950 border border-slate-800 rounded p-3 text-center flex flex-col justify-center">
+                          <p className="text-[9px] text-slate-400 font-sans truncate mb-0.5">{met.label}</p>
+                          <p className="font-bold text-slate-100 truncate font-title leading-tight" style={{ fontSize: '18pt' }}>{met.value}</p>
                         </div>
                       ))}
                     </div>
