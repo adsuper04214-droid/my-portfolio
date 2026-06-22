@@ -339,7 +339,7 @@ export default function App() {
                 <div className="space-y-1">
                   <span className="text-[10px] font-extrabold uppercase font-mono tracking-wider text-purple-600">GROWTH HACKING</span>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-black text-slate-900 font-title">팔로워 2,000명</span>
+                    <span className="text-2xl font-black text-slate-900 font-title">팔로워 1,200명</span>
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed font-sans">
                     광고 해부 SNS 채널 무드설계, 타깃 활동 분석 통해 평일 도달률 41% 최적화
