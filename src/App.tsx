@@ -640,157 +640,258 @@ export default function App() {
                   {/* Simulated interactive visual card depending on project */}
                   <div className="my-auto py-2">
                     {curProject.id === "screenx-pt" && (
-                      <div className="space-y-4">
-                        <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
-                          <img 
-                            src={screenxSlides[subSlideIdx].image} 
-                            alt={screenxSlides[subSlideIdx].title} 
-                            className="w-full h-auto select-none block" 
-                          />
-                          <button 
-                            onClick={() => setSubSlideIdx((prev) => (prev - 1 + screenxSlides.length) % screenxSlides.length)}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
-                            aria-label="이전 이미지"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          <button 
-                            onClick={() => setSubSlideIdx((prev) => (prev + 1) % screenxSlides.length)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
-                            aria-label="다음 이미지"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                          <p className="text-[11px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">
-                            {screenxSlides[subSlideIdx].title}
-                          </p>
-                          <div className="flex gap-1.5 justify-center">
-                            {screenxSlides.map((_, sIdx) => (
-                              <span 
-                                key={sIdx} 
-                                onClick={() => setSubSlideIdx(sIdx)}
-                                className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
-                                  subSlideIdx === sIdx ? 'bg-indigo-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
-                                }`} 
-                              />
-                            ))}
+                      <>
+                        {/* Mobile/Tablet View (Carousel Slider) */}
+                        <div className="lg:hidden space-y-4">
+                          <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
+                            <img 
+                              src={screenxSlides[subSlideIdx].image} 
+                              alt={screenxSlides[subSlideIdx].title} 
+                              className="w-full h-auto select-none block" 
+                            />
+                            <button 
+                              onClick={() => setSubSlideIdx((prev) => (prev - 1 + screenxSlides.length) % screenxSlides.length)}
+                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
+                              aria-label="이전 이미지"
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button 
+                              onClick={() => setSubSlideIdx((prev) => (prev + 1) % screenxSlides.length)}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
+                              aria-label="다음 이미지"
+                            >
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="flex flex-col items-center gap-2">
+                            <p className="text-[11px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">
+                              {screenxSlides[subSlideIdx].title}
+                            </p>
+                            <div className="flex gap-1.5 justify-center">
+                              {screenxSlides.map((_, sIdx) => (
+                                <span 
+                                  key={sIdx} 
+                                  onClick={() => setSubSlideIdx(sIdx)}
+                                  className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${
+                                    subSlideIdx === sIdx ? 'bg-indigo-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
+                                  }`} 
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
+
+                        {/* PC/Desktop View (Stacked List) */}
+                        <div className="hidden lg:flex lg:flex-col lg:gap-4">
+                          {screenxSlides.map((slide, idx) => (
+                            <div key={idx} className="space-y-2">
+                              <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
+                                <img 
+                                  src={slide.image} 
+                                  alt={slide.title} 
+                                  className="w-full h-auto select-none block" 
+                                />
+                              </div>
+                              <p className="text-[11px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">
+                                {slide.title}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </>
                     )}
 
                     {curProject.id === "behind-the-ad" && (
-                      <div className="space-y-4">
-                        <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
-                          <img 
-                            src={behindSlides[subSlideIdx].image} 
-                            alt={behindSlides[subSlideIdx].title} 
-                            className="w-full h-auto select-none block" 
-                          />
-                          <button 
-                            onClick={() => setSubSlideIdx((prev) => (prev - 1 + behindSlides.length) % behindSlides.length)}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
-                            aria-label="이전 이미지"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          <button 
-                            onClick={() => setSubSlideIdx((prev) => (prev + 1) % behindSlides.length)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
-                            aria-label="다음 이미지"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                          <p className="text-[11px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">
-                            {behindSlides[subSlideIdx].title}
-                          </p>
-                          <div className="flex gap-1.5 justify-center">
-                            {behindSlides.map((_, sIdx) => (
-                              <span 
-                                key={sIdx} 
-                                onClick={() => setSubSlideIdx(sIdx)}
-                                className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
-                                  subSlideIdx === sIdx ? 'bg-purple-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
-                                }`} 
-                              />
-                            ))}
+                      <>
+                        {/* Mobile/Tablet View (Carousel Slider) */}
+                        <div className="lg:hidden space-y-4">
+                          <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
+                            <img 
+                              src={behindSlides[subSlideIdx].image} 
+                              alt={behindSlides[subSlideIdx].title} 
+                              className="w-full h-auto select-none block" 
+                            />
+                            <button 
+                              onClick={() => setSubSlideIdx((prev) => (prev - 1 + behindSlides.length) % behindSlides.length)}
+                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
+                              aria-label="이전 이미지"
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button 
+                              onClick={() => setSubSlideIdx((prev) => (prev + 1) % behindSlides.length)}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/85 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
+                              aria-label="다음 이미지"
+                            >
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="flex flex-col items-center gap-2">
+                            <p className="text-[11px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">
+                              {behindSlides[subSlideIdx].title}
+                            </p>
+                            <div className="flex gap-1.5 justify-center">
+                              {behindSlides.map((_, sIdx) => (
+                                <span 
+                                  key={sIdx} 
+                                  onClick={() => setSubSlideIdx(sIdx)}
+                                  className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                                    subSlideIdx === sIdx ? 'bg-purple-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
+                                  }`} 
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
+
+                        {/* PC/Desktop View (Stacked List) */}
+                        <div className="hidden lg:flex lg:flex-col lg:gap-4">
+                          {behindSlides.map((slide, idx) => (
+                            <div key={idx} className="space-y-2">
+                              <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
+                                <img 
+                                  src={slide.image} 
+                                  alt={slide.title} 
+                                  className="w-full h-auto select-none block" 
+                                />
+                              </div>
+                              <p className="text-[11px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">
+                                {slide.title}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </>
                     )}
 
                     {curProject.id === "tlab-reels" && (
-                      <div className="space-y-4">
-                        <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
-                          <img 
-                            src={tlabSlides[subSlideIdx].image} 
-                            alt={tlabSlides[subSlideIdx].title} 
-                            className="w-full h-auto select-none block" 
-                          />
-                          <button 
-                            onClick={() => setSubSlideIdx((prev) => (prev - 1 + tlabSlides.length) % tlabSlides.length)}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
-                            aria-label="이전 이미지"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          <button 
-                            onClick={() => setSubSlideIdx((prev) => (prev + 1) % tlabSlides.length)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
-                            aria-label="다음 이미지"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                          <p className="text-[11px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">
-                            {tlabSlides[subSlideIdx].title}
-                          </p>
-                          <div className="flex gap-1.5 justify-center">
-                            {tlabSlides.map((_, sIdx) => (
-                              <span 
-                                key={sIdx} 
-                                onClick={() => setSubSlideIdx(sIdx)}
-                                className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
-                                  subSlideIdx === sIdx ? 'bg-pink-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
-                                }`} 
-                              />
-                            ))}
+                      <>
+                        {/* Mobile/Tablet View (Carousel Slider) */}
+                        <div className="lg:hidden space-y-4">
+                          <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
+                            <img 
+                              src={tlabSlides[subSlideIdx].image} 
+                              alt={tlabSlides[subSlideIdx].title} 
+                              className="w-full h-auto select-none block" 
+                            />
+                            <button 
+                              onClick={() => setSubSlideIdx((prev) => (prev - 1 + tlabSlides.length) % tlabSlides.length)}
+                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
+                              aria-label="이전 이미지"
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button 
+                              onClick={() => setSubSlideIdx((prev) => (prev + 1) % tlabSlides.length)}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
+                              aria-label="다음 이미지"
+                            >
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="flex flex-col items-center gap-2">
+                            <p className="text-[11px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">
+                              {tlabSlides[subSlideIdx].title}
+                            </p>
+                            <div className="flex gap-1.5 justify-center">
+                              {tlabSlides.map((_, sIdx) => (
+                                <span 
+                                  key={sIdx} 
+                                  onClick={() => setSubSlideIdx(sIdx)}
+                                  className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                                    subSlideIdx === sIdx ? 'bg-pink-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
+                                  }`} 
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
+
+                        {/* PC/Desktop View (Stacked List) */}
+                        <div className="hidden lg:flex lg:flex-col lg:gap-4">
+                          {tlabSlides.map((slide, idx) => (
+                            <div key={idx} className="space-y-2">
+                              <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
+                                <img 
+                                  src={slide.image} 
+                                  alt={slide.title} 
+                                  className="w-full h-auto select-none block" 
+                                />
+                              </div>
+                              <p className="text-[11px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">
+                                {slide.title}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </>
                     )}
 
                     {curProject.id === "catchme-exhibition" && (
-                      <div className="space-y-4">
-                        <div className="flex justify-center gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800">
-                          <button
-                            onClick={() => setSubSlideIdx(0)}
-                            className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
-                              subSlideIdx === 0 
-                                ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
-                                : 'text-slate-400 hover:text-slate-200'
-                            }`}
-                          >
-                            메인 홍보 영상
-                          </button>
-                          <button
-                            onClick={() => setSubSlideIdx(1)}
-                            className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
-                              subSlideIdx === 1 
-                                ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
-                                : 'text-slate-400 hover:text-slate-200'
-                            }`}
-                          >
-                            에필로그 인터뷰
-                          </button>
+                      <>
+                        {/* Mobile/Tablet View (Tab Video Player) */}
+                        <div className="lg:hidden space-y-4">
+                          <div className="flex justify-center gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800">
+                            <button
+                              onClick={() => setSubSlideIdx(0)}
+                              className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
+                                subSlideIdx === 0 
+                                  ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
+                                  : 'text-slate-400 hover:text-slate-200'
+                              }`}
+                            >
+                              메인 홍보 영상
+                            </button>
+                            <button
+                              onClick={() => setSubSlideIdx(1)}
+                              className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
+                                subSlideIdx === 1 
+                                  ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
+                                  : 'text-slate-400 hover:text-slate-200'
+                              }`}
+                            >
+                              에필로그 인터뷰
+                            </button>
+                          </div>
+
+                          {subSlideIdx === 0 ? (
+                            <div className="space-y-2">
+                              <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                                <iframe
+                                  className="w-full h-full"
+                                  src="https://www.youtube.com/embed/pb_rGpxlAL8"
+                                  title="제37회 애드파워 전시회 『캐취미 : 취미를 쫓아 사라진 나를 찾다』"
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowFullScreen
+                                ></iframe>
+                              </div>
+                              <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
+                                🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="space-y-2">
+                              <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                                <iframe
+                                  className="w-full h-full"
+                                  src="https://www.youtube.com/embed/nkl38NVh6nM"
+                                  title="『캐취미 Epilogue : 거리 너머의 두번째 이야기』"
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowFullScreen
+                                ></iframe>
+                              </div>
+                              <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
+                                🎬 에필로그 인터뷰: 『캐취미 Epilogue : 거리 너머의 두번째 이야기』
+                              </p>
+                            </div>
+                          )}
                         </div>
 
-                        {subSlideIdx === 0 ? (
+                        {/* PC/Desktop View (Stacked Videos) */}
+                        <div className="hidden lg:flex lg:flex-col lg:gap-5">
                           <div className="space-y-2">
                             <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
                               <iframe
@@ -806,8 +907,7 @@ export default function App() {
                               🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』
                             </p>
                           </div>
-                        ) : (
-                          <div className="space-y-2">
+                          <div className="space-y-2 pt-2">
                             <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
                               <iframe
                                 className="w-full h-full"
@@ -822,8 +922,8 @@ export default function App() {
                               🎬 에필로그 인터뷰: 『캐취미 Epilogue : 거리 너머의 두번째 이야기』
                             </p>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      </>
                     )}
                   </div>
 
