@@ -58,7 +58,7 @@ const renderHighlightedText = (text: string, colorClass: string, isColorActive: 
       {lines.map((line, lIdx) => {
         const parts = line.split(/\{([^}]+)\}/g);
         return (
-          <span key={lIdx} className="block leading-relaxed tracking-wide" style={{ fontSize: "11pt", letterSpacing: "0.03em" }}>
+          <span key={lIdx} className="block leading-relaxed tracking-wide text-xs sm:text-sm lg:text-[11pt]" style={{ letterSpacing: "0.03em" }}>
             {parts.map((part, index) => {
               if (index % 2 === 1) {
                 return (
@@ -79,6 +79,7 @@ const renderHighlightedText = (text: string, colorClass: string, isColorActive: 
 export default function App() {
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
+  const [subSlideIdx, setSubSlideIdx] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const screenxSlides = [
@@ -151,10 +152,12 @@ export default function App() {
 
   const nextProject = () => {
     setActiveProjectIdx((prev) => (prev + 1) % projectsData.length);
+    setSubSlideIdx(0);
   };
 
   const prevProject = () => {
     setActiveProjectIdx((prev) => (prev - 1 + projectsData.length) % projectsData.length);
+    setSubSlideIdx(0);
   };
 
   const curProject = projectsData[activeProjectIdx];
@@ -187,7 +190,7 @@ export default function App() {
       </header>
 
       {/* 1. HERO SECTION (메인 홈) */}
-      <section className="relative overflow-hidden bg-white border-b border-slate-200/50 py-16 lg:py-24" id="hero">
+      <section className="relative overflow-hidden bg-white border-b border-slate-200/50 py-12 sm:py-16 lg:py-24" id="hero">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Hero Left Content */}
@@ -284,7 +287,7 @@ export default function App() {
               </div>
 
               {/* Float Badge 1 - PT Winner */}
-              <div className="absolute -top-4 -left-4 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs animate-bounce" style={{animationDuration: '6s'}}>
+              <div className="absolute top-4 left-4 sm:-top-4 sm:-left-4 z-20 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs animate-bounce" style={{animationDuration: '6s'}}>
                 <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
                   <Award className="w-4.5 h-4.5" />
                 </div>
@@ -295,7 +298,7 @@ export default function App() {
               </div>
 
               {/* Float Badge 2 - Data */}
-              <div className="absolute -bottom-4 -right-4 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs">
+              <div className="absolute bottom-4 right-4 sm:-bottom-4 sm:-right-4 z-20 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs">
                 <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
                   <TrendingUp className="w-4.5 h-4.5" />
                 </div>
@@ -369,11 +372,11 @@ export default function App() {
       </section>
 
       {/* 2. 핵심 스토리텔링 (About Me) */}
-      <section className="py-20 bg-slate-50 border-b border-slate-200/50" id="about">
+      <section className="py-12 sm:py-16 lg:py-20 bg-slate-50 border-b border-slate-200/50" id="about">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center space-y-3 mb-16">
+          <div className="text-center space-y-3 mb-8 sm:mb-12 md:mb-16">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400">BUILD-UP STORY</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-title">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-title">
               인식이 바뀌는 지점을 설계하게 된 <br className="sm:hidden" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">3단계 빌드업 서사</span>
             </h2>
@@ -433,12 +436,12 @@ export default function App() {
       </section>
 
       {/* 3. 포트폴리오 아카이브 (Projects) */}
-      <section className="py-20 bg-white border-b border-slate-200/50" id="portfolio">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-200/50" id="portfolio">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center md:text-left md:flex md:items-end md:justify-between mb-12">
+          <div className="text-center md:text-left md:flex md:items-end md:justify-between mb-8 sm:mb-12">
             <div className="space-y-3">
               <span className="text-xs font-mono uppercase tracking-widest text-indigo-500">PROJECT ARCHIVE</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 font-title">핵심 프로젝트 성공사례분석</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-title">핵심 프로젝트 성공사례분석</h2>
             </div>
             <div className="hidden md:flex items-center gap-2 text-xs text-slate-400 font-mono">
               <span>{activeProjectIdx + 1} / {projectsData.length} PAGES</span>
@@ -446,15 +449,18 @@ export default function App() {
           </div>
 
           {/* Tab Selector Buttons */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/60">
+          <div className="flex overflow-x-auto md:grid md:grid-cols-4 gap-2 mb-8 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/60 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory">
             {projectsData.map((project, idx) => {
               const isSelected = activeProjectIdx === idx;
               const style = getThemeColors(project.category);
               return (
                 <button
                   key={project.id}
-                  onClick={() => setActiveProjectIdx(idx)}
-                  className={`text-xs md:text-sm font-semibold py-3 px-4 rounded-lg transition-all ${
+                  onClick={() => {
+                    setActiveProjectIdx(idx);
+                    setSubSlideIdx(0);
+                  }}
+                  className={`text-xs md:text-sm font-semibold py-2.5 md:py-3 px-4 rounded-lg transition-all min-w-[130px] md:min-w-0 flex-1 md:flex-initial shrink-0 snap-start ${
                     isSelected 
                       ? "bg-white text-slate-950 shadow-sm"
                       : "text-slate-500 hover:text-slate-800 hover:bg-white/40"
@@ -479,43 +485,45 @@ export default function App() {
             {/* Project Cover Ribbon */}
             <div className={`h-1.5 bg-gradient-to-r ${curProjColors.gradient}`} />
 
-            <div className="p-6 sm:p-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* Main Content Grid: flex-col on mobile, grid on desktop */}
+            <div className="p-4 sm:p-8 lg:p-12 flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-10">
               
-              {/* Left Column: Descriptive Case Narrative */}
-              <div className="lg:col-span-7 space-y-6 flex flex-col justify-between">
+              {/* Title & Subtitle block (Spans full width on desktop, order-1 on mobile) */}
+              <div className="lg:col-span-12 space-y-4 order-1">
+                {/* Category and Period */}
+                <div className="flex items-center gap-3 text-xs">
+                  <span className={`font-mono text-[10px] font-extrabold border px-2 py-0.5 rounded-full tracking-wide uppercase ${curProjColors.bg}`}>
+                    {curProject.category}
+                  </span>
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {curProject.period}
+                  </span>
+                </div>
+
+                {/* Title & Subtitle */}
+                <div>
+                  {curProject.id === "screenx-pt" && (
+                    <div className="font-extrabold text-blue-600 tracking-tight mb-1.5 text-base sm:text-lg lg:text-[15pt]">
+                      🏆 대상 수상 (평가단 만장일치)
+                    </div>
+                  )}
+                  <h3 className="font-extrabold text-slate-950 font-title tracking-tight leading-snug text-xl sm:text-2xl lg:text-[21pt]">
+                    {curProject.title}
+                  </h3>
+                  <p className={`text-xs sm:text-sm font-semibold mt-2 font-sans ${curProjColors.primary}`} style={{ letterSpacing: '0.02em' }}>
+                    {curProject.subtitle}
+                  </p>
+                </div>
+
+                <div className="pt-1 border-b border-slate-200/50" />
+              </div>
+
+              {/* Left Column: Case Breakdown (order-3 on mobile, col-span-7 on desktop) */}
+              <div className="lg:col-span-7 space-y-8 order-3 flex flex-col justify-between">
                 
-                <div className="space-y-4">
-                  
-                  {/* Category and Period */}
-                  <div className="flex items-center gap-3 text-xs">
-                    <span className={`font-mono text-[10px] font-extrabold border px-2 py-0.5 rounded-full tracking-wide uppercase ${curProjColors.bg}`}>
-                      {curProject.category}
-                    </span>
-                    <span className="text-slate-400 flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {curProject.period}
-                    </span>
-                  </div>
-
-                  {/* Title & Subtitle */}
-                  <div>
-                    {curProject.id === "screenx-pt" && (
-                      <div className="font-extrabold text-blue-600 tracking-tight mb-1.5" style={{ fontSize: '15pt' }}>
-                        🏆 대상 수상 (평가단 만장일치)
-                      </div>
-                    )}
-                    <h3 className="font-extrabold text-slate-950 font-title tracking-tight leading-snug" style={{ fontSize: '21pt' }}>
-                      {curProject.title}
-                    </h3>
-                    <p className={`text-base font-semibold mt-2 font-sans ${curProjColors.primary}`} style={{ letterSpacing: '0.02em' }}>
-                      {curProject.subtitle}
-                    </p>
-                  </div>
-
-                  <div className="pt-2 border-b border-slate-200/50 pb-4" />
-
-                  {/* Scenario Breakdown */}
-                  <div className="space-y-8 pt-3">
+                {/* Scenario Breakdown */}
+                <div className="space-y-6 pt-1">
                     
                     {/* Challenge block */}
                     {curProject.challenge && (
@@ -590,7 +598,6 @@ export default function App() {
                       </div>
                     )}
                   </div>
-                </div>
 
                 {/* Left Bottom Role & Tools */}
                 <div className="pt-6 border-t border-slate-200/50 space-y-4">
@@ -615,11 +622,11 @@ export default function App() {
 
               </div>
 
-              {/* Right Column: Visual Infographic Card / Interactive Mockup Representation */}
-              <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+              {/* Right Column: Visual Infographic Card / Interactive Mockup Representation (order-2 on mobile, col-span-5 on desktop) */}
+              <div className="lg:col-span-5 flex flex-col justify-between space-y-6 order-2">
                 
                 {/* Visual Representation container */}
-                <div className="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 space-y-6 shadow-md shadow-indigo-950/10 shrink-0 h-full flex flex-col justify-between">
+                <div className="bg-slate-900 rounded-2xl p-5 md:p-6 text-white border border-slate-800 space-y-5 shadow-md shadow-indigo-950/10 shrink-0 h-full flex flex-col justify-between">
                   
                   <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                     <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
@@ -631,87 +638,191 @@ export default function App() {
                   </div>
 
                   {/* Simulated interactive visual card depending on project */}
-                  <div className="my-auto py-4">
+                  <div className="my-auto py-2">
                     {curProject.id === "screenx-pt" && (
-                      <div className="flex flex-col gap-4">
-                        {screenxSlides.map((slide, idx) => (
-                          <div key={idx} className="space-y-2">
-                            <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
-                              <img 
-                                src={slide.image} 
-                                alt={slide.title} 
-                                className="w-full h-auto select-none block" 
+                      <div className="space-y-4">
+                        <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
+                          <img 
+                            src={screenxSlides[subSlideIdx].image} 
+                            alt={screenxSlides[subSlideIdx].title} 
+                            className="w-full h-auto select-none block" 
+                          />
+                          <button 
+                            onClick={() => setSubSlideIdx((prev) => (prev - 1 + screenxSlides.length) % screenxSlides.length)}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
+                            aria-label="이전 이미지"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => setSubSlideIdx((prev) => (prev + 1) % screenxSlides.length)}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
+                            aria-label="다음 이미지"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                        <div className="flex flex-col items-center gap-2">
+                          <p className="text-[11px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">
+                            {screenxSlides[subSlideIdx].title}
+                          </p>
+                          <div className="flex gap-1.5 justify-center">
+                            {screenxSlides.map((_, sIdx) => (
+                              <span 
+                                key={sIdx} 
+                                onClick={() => setSubSlideIdx(sIdx)}
+                                className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                                  subSlideIdx === sIdx ? 'bg-indigo-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
+                                }`} 
                               />
-                            </div>
-                            <p className="text-[10px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">{slide.title}</p>
+                            ))}
                           </div>
-                        ))}
+                        </div>
                       </div>
                     )}
 
                     {curProject.id === "behind-the-ad" && (
-                      <div className="flex flex-col gap-4">
-                        {behindSlides.map((slide, idx) => (
-                          <div key={idx} className="space-y-2">
-                            <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
-                              <img 
-                                src={slide.image} 
-                                alt={slide.title} 
-                                className="w-full h-auto select-none block" 
+                      <div className="space-y-4">
+                        <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
+                          <img 
+                            src={behindSlides[subSlideIdx].image} 
+                            alt={behindSlides[subSlideIdx].title} 
+                            className="w-full h-auto select-none block" 
+                          />
+                          <button 
+                            onClick={() => setSubSlideIdx((prev) => (prev - 1 + behindSlides.length) % behindSlides.length)}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
+                            aria-label="이전 이미지"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => setSubSlideIdx((prev) => (prev + 1) % behindSlides.length)}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
+                            aria-label="다음 이미지"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                        <div className="flex flex-col items-center gap-2">
+                          <p className="text-[11px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">
+                            {behindSlides[subSlideIdx].title}
+                          </p>
+                          <div className="flex gap-1.5 justify-center">
+                            {behindSlides.map((_, sIdx) => (
+                              <span 
+                                key={sIdx} 
+                                onClick={() => setSubSlideIdx(sIdx)}
+                                className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                                  subSlideIdx === sIdx ? 'bg-purple-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
+                                }`} 
                               />
-                            </div>
-                            <p className="text-[10px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">{slide.title}</p>
+                            ))}
                           </div>
-                        ))}
+                        </div>
                       </div>
                     )}
 
                     {curProject.id === "tlab-reels" && (
-                      <div className="flex flex-col gap-4">
-                        {tlabSlides.map((slide, idx) => (
-                          <div key={idx} className="space-y-2">
-                            <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
-                              <img 
-                                src={slide.image} 
-                                alt={slide.title} 
-                                className="w-full h-auto select-none block" 
+                      <div className="space-y-4">
+                        <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
+                          <img 
+                            src={tlabSlides[subSlideIdx].image} 
+                            alt={tlabSlides[subSlideIdx].title} 
+                            className="w-full h-auto select-none block" 
+                          />
+                          <button 
+                            onClick={() => setSubSlideIdx((prev) => (prev - 1 + tlabSlides.length) % tlabSlides.length)}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
+                            aria-label="이전 이미지"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => setSubSlideIdx((prev) => (prev + 1) % tlabSlides.length)}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm opacity-100 lg:opacity-0 lg:group-hover/slide:opacity-100 transition-opacity cursor-pointer z-10"
+                            aria-label="다음 이미지"
+                          >
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                        <div className="flex flex-col items-center gap-2">
+                          <p className="text-[11px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">
+                            {tlabSlides[subSlideIdx].title}
+                          </p>
+                          <div className="flex gap-1.5 justify-center">
+                            {tlabSlides.map((_, sIdx) => (
+                              <span 
+                                key={sIdx} 
+                                onClick={() => setSubSlideIdx(sIdx)}
+                                className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                                  subSlideIdx === sIdx ? 'bg-pink-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
+                                }`} 
                               />
-                            </div>
-                            <p className="text-[10px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">{slide.title}</p>
+                            ))}
                           </div>
-                        ))}
+                        </div>
                       </div>
                     )}
 
                     {curProject.id === "catchme-exhibition" && (
-                      <div className="flex flex-col gap-4">
-                        <div className="space-y-2">
-                          <p className="text-[11px] font-semibold text-emerald-300">🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』</p>
-                          <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                            <iframe
-                              className="w-full h-full"
-                              src="https://www.youtube.com/embed/pb_rGpxlAL8"
-                              title="제37회 애드파워 전시회 『캐취미 : 취미를 쫓아 사라진 나를 찾다』"
-                              frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                              allowFullScreen
-                            ></iframe>
-                          </div>
+                      <div className="space-y-4">
+                        <div className="flex justify-center gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800">
+                          <button
+                            onClick={() => setSubSlideIdx(0)}
+                            className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
+                              subSlideIdx === 0 
+                                ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
+                                : 'text-slate-400 hover:text-slate-200'
+                            }`}
+                          >
+                            메인 홍보 영상
+                          </button>
+                          <button
+                            onClick={() => setSubSlideIdx(1)}
+                            className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
+                              subSlideIdx === 1 
+                                ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
+                                : 'text-slate-400 hover:text-slate-200'
+                            }`}
+                          >
+                            에필로그 인터뷰
+                          </button>
                         </div>
 
-                        <div className="space-y-2">
-                          <p className="text-[11px] font-semibold text-emerald-300">🎬 에필로그 인터뷰: 『캐취미 Epilogue : 거리 너머의 두번째 이야기』</p>
-                          <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                            <iframe
-                              className="w-full h-full"
-                              src="https://www.youtube.com/embed/nkl38NVh6nM"
-                              title="『캐취미 Epilogue : 거리 너머의 두번째 이야기』"
-                              frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                              allowFullScreen
-                            ></iframe>
+                        {subSlideIdx === 0 ? (
+                          <div className="space-y-2">
+                            <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                              <iframe
+                                className="w-full h-full"
+                                src="https://www.youtube.com/embed/pb_rGpxlAL8"
+                                title="제37회 애드파워 전시회 『캐취미 : 취미를 쫓아 사라진 나를 찾다』"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                              ></iframe>
+                            </div>
+                            <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
+                              🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』
+                            </p>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="space-y-2">
+                            <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                              <iframe
+                                className="w-full h-full"
+                                src="https://www.youtube.com/embed/nkl38NVh6nM"
+                                title="『캐취미 Epilogue : 거리 너머의 두번째 이야기』"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                              ></iframe>
+                            </div>
+                            <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
+                              🎬 에필로그 인터뷰: 『캐취미 Epilogue : 거리 너머의 두번째 이야기』
+                            </p>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -731,48 +842,51 @@ export default function App() {
 
                 </div>
 
-                {/* Slideshow manual controls */}
-                <div className="flex items-center justify-between gap-4 bg-slate-100 p-2 rounded-xl border border-slate-200">
-                  <button 
-                    onClick={prevProject} 
-                    className="p-2 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center"
-                    aria-label="Previous project"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-
-                  <div className="flex gap-1.5 justify-center">
-                    {projectsData.map((_, dotIdx) => (
-                      <span 
-                        key={dotIdx} 
-                        onClick={() => setActiveProjectIdx(dotIdx)}
-                        className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${
-                          activeProjectIdx === dotIdx ? `bg-slate-900 scale-110` : 'bg-slate-300 hover:bg-slate-400'
-                        }`} 
-                      />
-                    ))}
-                  </div>
-
-                  <button 
-                    onClick={nextProject} 
-                    className="p-2 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center"
-                    aria-label="Next project"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
-
               </div>
 
+            </div>
+
+            {/* Slideshow manual controls */}
+            <div className="flex items-center justify-between gap-4 bg-slate-100/85 p-4 border-t border-slate-200/60 rounded-b-2xl">
+              <button 
+                onClick={prevProject} 
+                className="p-2.5 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center shadow-sm"
+                aria-label="Previous project"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <div className="flex gap-1.5 justify-center">
+                {projectsData.map((_, dotIdx) => (
+                  <span 
+                    key={dotIdx} 
+                    onClick={() => {
+                      setActiveProjectIdx(dotIdx);
+                      setSubSlideIdx(0);
+                    }}
+                    className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${
+                      activeProjectIdx === dotIdx ? `bg-slate-900 scale-110` : 'bg-slate-300 hover:bg-slate-400'
+                    }`} 
+                  />
+                ))}
+              </div>
+
+              <button 
+                onClick={nextProject} 
+                className="p-2.5 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center shadow-sm"
+                aria-label="Next project"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* 4. PRODUCTION ENGINE (영상제작 역량) */}
-      <section className="py-20 bg-slate-50 border-b border-slate-200/50" id="video-skills">
+      <section className="py-12 sm:py-16 lg:py-20 bg-slate-50 border-b border-slate-200/50" id="video-skills">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center space-y-3 mb-16">
+          <div className="text-center space-y-3 mb-8 sm:mb-12 md:mb-16">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400">PRODUCTION</span>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-title">외주 영상 및 영상 기획・총괄 디렉팅</h2>
             <p className="text-sm text-slate-600 font-sans max-w-xl mx-auto leading-relaxed">
@@ -780,7 +894,7 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory">
             {outsourcingVideos.map((vid) => {
               const youtubeId = vid.url?.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/)?.[1];
               const thumbBg = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
@@ -816,7 +930,7 @@ export default function App() {
               return (
                 <div
                   key={vid.id}
-                  className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-lg transition-all space-y-4 group flex flex-col justify-between"
+                  className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-lg transition-all space-y-4 group flex flex-col justify-between min-w-[280px] sm:min-w-[320px] md:min-w-0 flex-1 md:flex-initial shrink-0 snap-start"
                 >
                   <div className="space-y-4">
                     {vid.url ? (
@@ -870,14 +984,14 @@ export default function App() {
       </section>
 
       {/* 5. RESUME & PROFILE DETAILS */}
-      <section className="py-20 bg-white border-b border-slate-200/50" id="resume">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-200/50" id="resume">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left Area: Brief bio & tools */}
           <div className="lg:col-span-4 space-y-8">
             <div className="space-y-4">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-400">QUALIFICATIONS</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-title">보유 핵심 역량</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-title">보유 핵심 역량</h2>
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-sans font-light">
                 설득력 있는 크리에이티브 기획에 자발적 가설 수립 및 정량 지표 분석(GA4) 감각을 융합하여 기획과 실행의 공백을 채웁니다.
               </p>
@@ -1006,12 +1120,12 @@ export default function App() {
       </section>
 
       {/* 6. CONTACT SECTION */}
-      <section className="py-20 bg-slate-900 text-slate-300 border-t border-slate-900" id="contact">
+      <section className="py-12 sm:py-16 lg:py-20 bg-slate-900 text-slate-300 border-t border-slate-900" id="contact">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
           
           <div className="space-y-4">
             <span className="text-xs font-mono uppercase tracking-widest text-indigo-400">GET IN TOUCH</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-title">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-title">
               인식을 바꾸는 지점을 함께 설계해 보세요.
             </h2>
             <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
