@@ -520,7 +520,7 @@ export default function App() {
               </div>
 
               {/* Left Column: Case Breakdown (order-3 on mobile, col-span-7 on desktop) */}
-              <div className="lg:col-span-7 space-y-8 order-3 flex flex-col justify-between">
+              <div className="lg:col-span-7 space-y-8 order-3 lg:order-none flex flex-col justify-between">
                 
                 {/* Scenario Breakdown */}
                 <div className="space-y-6 pt-1">
@@ -623,7 +623,7 @@ export default function App() {
               </div>
 
               {/* Right Column: Visual Infographic Card / Interactive Mockup Representation (order-2 on mobile, col-span-5 on desktop) */}
-              <div className="lg:col-span-5 flex flex-col justify-between space-y-6 order-2">
+              <div className="lg:col-span-5 flex flex-col justify-between space-y-6 order-2 lg:order-none">
                 
                 {/* Visual Representation container */}
                 <div className="bg-slate-900 rounded-2xl p-5 md:p-6 text-white border border-slate-800 space-y-5 shadow-md shadow-indigo-950/10 shrink-0 h-full flex flex-col justify-between">
