@@ -41,62 +41,11 @@ import {
   certifications 
 } from "./data";
 import { ProjectData } from "./types";
-import profilePhoto from "./profile.png";
-import screenxSlide1 from "./screenx-slide1.png";
-import screenxSlide2 from "./screenx-slide2.png";
-import screenxSlide3 from "./screenx-slide3.png";
-import behindSlide1 from "./behind-slide1.png";
-import behindSlide2 from "./behind-slide2.png";
-import tlabSlide1 from "./tlab-slide1.png";
-import tlabSlide2 from "./tlab-slide2.png";
-
-const renderHighlightedText = (text: string, colorClass: string, isColorActive: boolean = false) => {
-  if (!text) return null;
-  const lines = text.split("\n");
-  return (
-    <span className="block space-y-2">
-      {lines.map((line, lIdx) => {
-        const parts = line.split(/\{([^}]+)\}/g);
-        return (
-          <span key={lIdx} className="block leading-relaxed tracking-wide text-xs sm:text-sm lg:text-[11pt]" style={{ letterSpacing: "0.03em" }}>
-            {parts.map((part, index) => {
-              if (index % 2 === 1) {
-                return (
-                  <span key={index} className={`font-black ${isColorActive ? colorClass : "text-slate-950"}`}>
-                    {part}
-                  </span>
-                );
-              }
-              return part;
-            })}
-          </span>
-        );
-      })}
-    </span>
-  );
-};
 
 export default function App() {
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
-  const [subSlideIdx, setSubSlideIdx] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
-
-  const screenxSlides = [
-    { image: screenxSlide1, title: "마케팅 제안서 표지" },
-    { image: screenxSlide2, title: "컨셉 제안 - NO EXIT 경고판" },
-    { image: screenxSlide3, title: "CGV 앱/웹 팝업 배너 시안" }
-  ];
-
-  const behindSlides = [
-    { image: behindSlide1, title: "퍼스널 브랜딩 소개페이지 & 인스타그램 채널 시안" },
-    { image: behindSlide2, title: "인스타그램 숏폼/릴스 기획 및 발행 썸네일 그리드" }
-  ];
-
-  const tlabSlides = [
-    { image: tlabSlide1, title: "인스타그램 릴스 상황극 업로드 및 상세 자막 캡처" },
-    { image: tlabSlide2, title: "폰트티랩 공식 인스타그램 피드 릴스 발행 그리드" }
-  ];
 
   // Helper to get project style
   const getThemeColors = (category: string) => {
@@ -152,12 +101,10 @@ export default function App() {
 
   const nextProject = () => {
     setActiveProjectIdx((prev) => (prev + 1) % projectsData.length);
-    setSubSlideIdx(0);
   };
 
   const prevProject = () => {
     setActiveProjectIdx((prev) => (prev - 1 + projectsData.length) % projectsData.length);
-    setSubSlideIdx(0);
   };
 
   const curProject = projectsData[activeProjectIdx];
@@ -190,7 +137,7 @@ export default function App() {
       </header>
 
       {/* 1. HERO SECTION (메인 홈) */}
-      <section className="relative overflow-hidden bg-white border-b border-slate-200/50 py-12 sm:py-16 lg:py-24" id="hero">
+      <section className="relative overflow-hidden bg-white border-b border-slate-200/50 py-16 lg:py-24" id="hero">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Hero Left Content */}
@@ -202,18 +149,18 @@ export default function App() {
 
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.3] text-slate-900 tracking-tight font-title" id="main_title">
-                기획, 제작, 데이터의 삼박자를 갖춰 <br />
+                생각에 머물던 기획을 <br />
                 <span className="relative inline-block text-slate-950 whitespace-nowrap">
-                  비즈니스 임팩트를 만드는
+                  소비자의 움직임으로,
                 </span> <br />
-                실전형 올라운더, <br />
+                인식이 바뀌는 지점을 설계하는 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
                   AE 김도현입니다.
                 </span>
               </h1>
 
               <p className="text-slate-600 text-base lg:text-lg leading-relaxed font-sans max-w-2xl font-light" id="sub_brief">
-                소비자의 심리적 장벽을 분석하고, 데이터로 증명하며, 행동을 이끌어내는 인식을 설계합니다.
+                아이디어만 던지는 기획자가 아닙니다. 광고 분석 채널을 직접 키우며 대중의 반응을 지표로 목격했고, 콘텐츠를 만들 줄 알기에 기획단계부터 실무 프로세스를 이해하며, GA4로 캠페인의 성과를 추적합니다. 기획, 제작, 데이터의 삼박자를 갖춘 실전형 올라운더 AE 김도현입니다.
               </p>
             </div>
 
@@ -238,17 +185,17 @@ export default function App() {
 
           {/* Hero Right Visual Layout: Smart professional showcase without holding camera */}
           <div className="lg:col-span-5 flex justify-center" id="hero_visual_container">
-            <div className="relative w-full max-w-sm aspect-[3/4]">
+            <div className="relative w-full max-w-sm aspect-square">
               {/* Outer Glow Circles */}
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-300/20 via-indigo-300/15 to-purple-400/20 rounded-full blur-3xl -z-10" />
               
               {/* Profile Card Mockup */}
-              <div className="w-full h-full bg-[#121B2C] rounded-3xl p-6 shadow-2xl flex flex-col justify-between text-white border border-[#1d273a] relative z-10 overflow-hidden">
+              <div className="w-full h-full bg-slate-900 rounded-3xl p-6 shadow-2xl flex flex-col justify-between text-white border border-slate-800 relative z-10 overflow-hidden">
                 {/* Visual Accent Overlay */}
                 <div className="absolute -top-12 -right-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-xl pointer-events-none" />
                 <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-purple-500/10 rounded-full blur-xl pointer-events-none" />
 
-                <div className="flex items-center justify-between border-b border-[#1d273a] pb-4">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -258,36 +205,34 @@ export default function App() {
                 </div>
 
                 <div className="my-auto space-y-6">
-                  {/* Profile Photo */}
+                  {/* Styled Avatar Initial Placeholder / Monogram */}
                   <div className="flex justify-center">
-                    <div className="w-full h-64 rounded-2xl overflow-hidden relative border border-[#1d273a] shadow-inner bg-[#121B2C]">
-                      <img 
-                        src={profilePhoto} 
-                        alt="김도현 프로필" 
-                        className="w-full h-full object-cover object-top scale-100 select-none" 
-                      />
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 p-1 shadow-lg shadow-indigo-500/20 flex items-center justify-center">
+                      <div className="w-full h-full rounded-full bg-slate-950 flex flex-col items-center justify-center">
+                        <span className="text-3xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 font-title">KD</span>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="text-center space-y-2">
-                    <h3 className="text-2xl font-bold font-title">김도현</h3>
+                  <div className="text-center space-y-1">
+                    <h3 className="text-xl font-bold font-title">김도현</h3>
                     <p className="text-xs text-slate-400 font-mono">Dohyeon Kim / 2001.04.21</p>
                     <div className="pt-2 flex flex-wrap justify-center gap-1.5">
-                      <span className="text-[10px] tracking-tight bg-slate-800/80 text-blue-300 px-2 py-0.5 rounded border border-blue-900/40">기획전략 STRATEGY</span>
-                      <span className="text-[10px] tracking-tight bg-slate-800/80 text-purple-300 px-2 py-0.5 rounded border border-purple-900/40">생산제작 CONTENT</span>
-                      <span className="text-[10px] tracking-tight bg-slate-800/80 text-emerald-300 px-2 py-0.5 rounded border border-emerald-900/40">데이터 GA4</span>
+                      <span className="text-[10px] tracking-tight bg-slate-800 text-blue-300 px-2 py-0.5 rounded border border-blue-900/40">기획전략 STRATEGY</span>
+                      <span className="text-[10px] tracking-tight bg-slate-800 text-purple-300 px-2 py-0.5 rounded border border-purple-900/40">생산제작 CONTENT</span>
+                      <span className="text-[10px] tracking-tight bg-slate-800 text-emerald-300 px-2 py-0.5 rounded border border-emerald-900/40">데이터 GA4</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t border-[#1d273a] pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div className="border-t border-slate-800 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
                   <span>SHINHAN UNIV</span>
                   <span className="text-slate-500">● ACTIVE</span>
                 </div>
               </div>
 
               {/* Float Badge 1 - PT Winner */}
-              <div className="absolute top-4 left-4 sm:-top-4 sm:-left-4 z-20 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs animate-bounce" style={{animationDuration: '6s'}}>
+              <div className="absolute -top-4 -left-4 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs animate-bounce" style={{animationDuration: '6s'}}>
                 <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
                   <Award className="w-4.5 h-4.5" />
                 </div>
@@ -298,7 +243,7 @@ export default function App() {
               </div>
 
               {/* Float Badge 2 - Data */}
-              <div className="absolute bottom-4 right-4 sm:-bottom-4 sm:-right-4 z-20 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs">
+              <div className="absolute -bottom-4 -right-4 bg-white border border-slate-200 p-3 rounded-xl shadow-lg flex items-center gap-2.5 max-w-xs">
                 <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
                   <TrendingUp className="w-4.5 h-4.5" />
                 </div>
@@ -342,7 +287,7 @@ export default function App() {
                 <div className="space-y-1">
                   <span className="text-[10px] font-extrabold uppercase font-mono tracking-wider text-purple-600">GROWTH HACKING</span>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-black text-slate-900 font-title">팔로워 1,200명</span>
+                    <span className="text-2xl font-black text-slate-900 font-title">팔로워 2,000명</span>
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed font-sans">
                     광고 해부 SNS 채널 무드설계, 타깃 활동 분석 통해 평일 도달률 41% 최적화
@@ -372,11 +317,11 @@ export default function App() {
       </section>
 
       {/* 2. 핵심 스토리텔링 (About Me) */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-slate-50 border-b border-slate-200/50" id="about">
+      <section className="py-20 bg-slate-50 border-b border-slate-200/50" id="about">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center space-y-3 mb-8 sm:mb-12 md:mb-16">
+          <div className="text-center space-y-3 mb-16">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400">BUILD-UP STORY</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-title">
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-title">
               인식이 바뀌는 지점을 설계하게 된 <br className="sm:hidden" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">3단계 빌드업 서사</span>
             </h2>
@@ -436,12 +381,12 @@ export default function App() {
       </section>
 
       {/* 3. 포트폴리오 아카이브 (Projects) */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-200/50" id="portfolio">
+      <section className="py-20 bg-white border-b border-slate-200/50" id="portfolio">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center md:text-left md:flex md:items-end md:justify-between mb-8 sm:mb-12">
+          <div className="text-center md:text-left md:flex md:items-end md:justify-between mb-12">
             <div className="space-y-3">
               <span className="text-xs font-mono uppercase tracking-widest text-indigo-500">PROJECT ARCHIVE</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-title">핵심 프로젝트 성공사례분석</h2>
+              <h2 className="text-3xl font-extrabold text-slate-900 font-title">핵심 프로젝트 성공사례분석</h2>
             </div>
             <div className="hidden md:flex items-center gap-2 text-xs text-slate-400 font-mono">
               <span>{activeProjectIdx + 1} / {projectsData.length} PAGES</span>
@@ -449,18 +394,15 @@ export default function App() {
           </div>
 
           {/* Tab Selector Buttons */}
-          <div className="flex overflow-x-auto md:grid md:grid-cols-4 gap-2 mb-8 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/60 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/60">
             {projectsData.map((project, idx) => {
               const isSelected = activeProjectIdx === idx;
               const style = getThemeColors(project.category);
               return (
                 <button
                   key={project.id}
-                  onClick={() => {
-                    setActiveProjectIdx(idx);
-                    setSubSlideIdx(0);
-                  }}
-                  className={`text-xs md:text-sm font-semibold py-2.5 md:py-3 px-4 rounded-lg transition-all min-w-[130px] md:min-w-0 flex-1 md:flex-initial shrink-0 snap-start ${
+                  onClick={() => setActiveProjectIdx(idx)}
+                  className={`text-xs md:text-sm font-semibold py-3 px-4 rounded-lg transition-all ${
                     isSelected 
                       ? "bg-white text-slate-950 shadow-sm"
                       : "text-slate-500 hover:text-slate-800 hover:bg-white/40"
@@ -485,119 +427,89 @@ export default function App() {
             {/* Project Cover Ribbon */}
             <div className={`h-1.5 bg-gradient-to-r ${curProjColors.gradient}`} />
 
-            {/* Main Content Grid: flex-col on mobile, grid on desktop */}
-            <div className="p-4 sm:p-8 lg:p-12 flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-10">
+            <div className="p-6 sm:p-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
               
-              {/* Title & Subtitle block (Spans full width on desktop, order-1 on mobile) */}
-              <div className="lg:col-span-12 space-y-4 order-1">
-                {/* Category and Period */}
-                <div className="flex items-center gap-3 text-xs">
-                  <span className={`font-mono text-[10px] font-extrabold border px-2 py-0.5 rounded-full tracking-wide uppercase ${curProjColors.bg}`}>
-                    {curProject.category}
-                  </span>
-                  <span className="text-slate-400 flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {curProject.period}
-                  </span>
-                </div>
-
-                {/* Title & Subtitle */}
-                <div>
-                  {curProject.id === "screenx-pt" && (
-                    <div className="font-extrabold text-blue-600 tracking-tight mb-1.5 text-base sm:text-lg lg:text-[15pt]">
-                      🏆 대상 수상 (평가단 만장일치)
-                    </div>
-                  )}
-                  <h3 className="font-extrabold text-slate-950 font-title tracking-tight leading-snug text-xl sm:text-2xl lg:text-[21pt]">
-                    {curProject.title}
-                  </h3>
-                  <p className={`text-xs sm:text-sm font-semibold mt-2 font-sans ${curProjColors.primary}`} style={{ letterSpacing: '0.02em' }}>
-                    {curProject.subtitle}
-                  </p>
-                </div>
-
-                <div className="pt-1 border-b border-slate-200/50" />
-              </div>
-
-              {/* Left Column: Case Breakdown (order-3 on mobile, col-span-7 on desktop) */}
-              <div className="lg:col-span-7 space-y-8 order-3 lg:order-none flex flex-col justify-between">
+              {/* Left Column: Descriptive Case Narrative */}
+              <div className="lg:col-span-7 space-y-6 flex flex-col justify-between">
                 
-                {/* Scenario Breakdown */}
-                <div className="space-y-6 pt-1">
+                <div className="space-y-4">
+                  
+                  {/* Category and Period */}
+                  <div className="flex items-center gap-3 text-xs">
+                    <span className={`font-mono text-[10px] font-extrabold border px-2 py-0.5 rounded-full tracking-wide uppercase ${curProjColors.bg}`}>
+                      {curProject.category}
+                    </span>
+                    <span className="text-slate-400 flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {curProject.period}
+                    </span>
+                  </div>
+
+                  {/* Title & Subtitle */}
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 font-title tracking-tight leading-snug">
+                      {curProject.title}
+                    </h3>
+                    <p className={`text-base font-semibold mt-1.5 font-sans ${curProjColors.primary}`}>
+                      {curProject.subtitle}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-b border-slate-200/50 pb-4" />
+
+                  {/* Scenario Breakdown */}
+                  <div className="space-y-5 pt-2">
                     
                     {/* Challenge block */}
                     {curProject.challenge && (
-                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
+                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-mono">CHALLENGE</span>
                         </div>
-                        <div className="text-slate-700">
-                          {renderHighlightedText(curProject.challenge, curProjColors.primary, false)}
-                        </div>
+                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
+                          {curProject.challenge}
+                        </p>
                       </div>
                     )}
 
                     {/* Insight block */}
                     {curProject.insight && (
-                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
+                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded font-mono">INSIGHT</span>
                         </div>
-                        <div className="text-slate-700">
-                          {renderHighlightedText(curProject.insight, curProjColors.primary, false)}
-                        </div>
+                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
+                          {curProject.insight}
+                        </p>
                       </div>
                     )}
 
                     {/* Action block */}
                     {curProject.action && (
-                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
+                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-mono">ACTION</span>
                         </div>
-                        <div className="text-slate-700">
-                          {renderHighlightedText(curProject.action, curProjColors.primary, false)}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* AI Utilization block */}
-                    {curProject.aiUtilization && (
-                      <div className="space-y-2 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-mono">AI 활용</span>
-                        </div>
-                        <div className="text-slate-700">
-                          {renderHighlightedText(curProject.aiUtilization, curProjColors.primary, false)}
-                        </div>
+                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-normal">
+                          {curProject.action}
+                        </p>
                       </div>
                     )}
 
                     {/* Result block */}
                     {curProject.result && (
-                      <div className="space-y-3 bg-white/60 p-5 rounded-xl border border-slate-200/40 shadow-sm">
+                      <div className="space-y-1 bg-white/60 p-4 rounded-xl border border-slate-200/40">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-mono">RESULT</span>
                         </div>
-                        {curProject.businessValue ? (
-                          <div className="space-y-3.5 text-slate-700 font-sans">
-                            <div className="leading-relaxed">
-                              <span className="font-bold text-slate-900 block mb-1 text-[11px] font-mono tracking-wider text-slate-400">성과</span>
-                              {renderHighlightedText(curProject.result, curProjColors.primary, true)}
-                            </div>
-                            <div className="leading-relaxed border-t border-slate-200/50 pt-3">
-                              <span className="font-bold text-slate-900 block mb-1 text-[11px] font-mono tracking-wider text-slate-400">비즈니스 가치</span>
-                              {renderHighlightedText(curProject.businessValue, curProjColors.primary, true)}
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="text-slate-700">
-                            {renderHighlightedText(curProject.result, curProjColors.primary, true)}
-                          </div>
-                        )}
+                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-sans font-semibold">
+                          {curProject.result}
+                        </p>
                       </div>
                     )}
+
                   </div>
+                </div>
 
                 {/* Left Bottom Role & Tools */}
                 <div className="pt-6 border-t border-slate-200/50 space-y-4">
@@ -622,11 +534,11 @@ export default function App() {
 
               </div>
 
-              {/* Right Column: Visual Infographic Card / Interactive Mockup Representation (order-2 on mobile, col-span-5 on desktop) */}
-              <div className="lg:col-span-5 flex flex-col justify-between space-y-6 order-2 lg:order-none">
+              {/* Right Column: Visual Infographic Card / Interactive Mockup Representation */}
+              <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
                 
                 {/* Visual Representation container */}
-                <div className="bg-slate-900 rounded-2xl p-5 md:p-6 text-white border border-slate-800 space-y-5 shadow-md shadow-indigo-950/10 shrink-0 h-full flex flex-col justify-between">
+                <div className="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 space-y-6 shadow-md shadow-indigo-950/10 shrink-0 h-full flex flex-col justify-between">
                   
                   <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                     <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
@@ -638,292 +550,84 @@ export default function App() {
                   </div>
 
                   {/* Simulated interactive visual card depending on project */}
-                  <div className="my-auto py-2">
+                  <div className="my-auto py-4">
                     {curProject.id === "screenx-pt" && (
-                      <>
-                        {/* Mobile/Tablet View (Carousel Slider) */}
-                        <div className="lg:hidden space-y-4">
-                          <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
-                            <img 
-                              src={screenxSlides[subSlideIdx].image} 
-                              alt={screenxSlides[subSlideIdx].title} 
-                              className="w-full h-auto select-none block" 
-                            />
-                            <button 
-                              onClick={() => setSubSlideIdx((prev) => (prev - 1 + screenxSlides.length) % screenxSlides.length)}
-                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
-                              aria-label="이전 이미지"
-                            >
-                              <ChevronLeft className="w-4 h-4" />
-                            </button>
-                            <button 
-                              onClick={() => setSubSlideIdx((prev) => (prev + 1) % screenxSlides.length)}
-                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
-                              aria-label="다음 이미지"
-                            >
-                              <ChevronRight className="w-4 h-4" />
-                            </button>
-                          </div>
-                          <div className="flex flex-col items-center gap-2">
-                            <p className="text-[11px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">
-                              {screenxSlides[subSlideIdx].title}
-                            </p>
-                            <div className="flex gap-1.5 justify-center">
-                              {screenxSlides.map((_, sIdx) => (
-                                <span 
-                                  key={sIdx} 
-                                  onClick={() => setSubSlideIdx(sIdx)}
-                                  className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${
-                                    subSlideIdx === sIdx ? 'bg-indigo-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
-                                  }`} 
-                                />
-                              ))}
-                            </div>
-                          </div>
+                      <div className="space-y-4 text-center">
+                        <div className="inline-flex bg-slate-800 p-2.5 rounded-xl border border-slate-700/80 mb-2">
+                          <span className="text-xs uppercase font-extrabold tracking-widest text-indigo-300 font-title">エ이리언: 로물루스</span>
                         </div>
-
-                        {/* PC/Desktop View (Stacked List) */}
-                        <div className="hidden lg:flex lg:flex-col lg:gap-4">
-                          {screenxSlides.map((slide, idx) => (
-                            <div key={idx} className="space-y-2">
-                              <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
-                                <img 
-                                  src={slide.image} 
-                                  alt={slide.title} 
-                                  className="w-full h-auto select-none block" 
-                                />
-                              </div>
-                              <p className="text-[11px] font-semibold text-indigo-300 text-center tracking-tight leading-relaxed">
-                                {slide.title}
-                              </p>
-                            </div>
-                          ))}
+                        <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col items-center justify-center space-y-2 relative overflow-hidden">
+                          {/* Simulated 3-screen format layout lines */}
+                          <div className="absolute top-1 right-2 text-[8px] font-mono text-slate-600">SCREENX 3-PLANE FORMAT</div>
+                          <div className="flex gap-1.5 w-full h-12 pt-2.5">
+                            <div className="bg-slate-900/60 border border-slate-800 rounded w-1/4 flex items-center justify-center text-[7px] text-slate-500 font-mono">LEFT</div>
+                            <div className="bg-gradient-to-b from-red-950/80 to-slate-900 border border-red-900/50 rounded w-2/4 flex items-center justify-center text-[8px] text-red-400 font-extrabold font-title uppercase tracking-widest">NO EXIT</div>
+                            <div className="bg-slate-900/60 border border-slate-800 rounded w-1/4 flex items-center justify-center text-[7px] text-slate-500 font-mono">RIGHT</div>
+                          </div>
+                          <span className="text-xs text-slate-400 leading-normal font-sans pt-1">영화관 3면 활용 극도의 공포감 유발 공간 연출</span>
                         </div>
-                      </>
+                      </div>
                     )}
 
                     {curProject.id === "behind-the-ad" && (
-                      <>
-                        {/* Mobile/Tablet View (Carousel Slider) */}
-                        <div className="lg:hidden space-y-4">
-                          <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
-                            <img 
-                              src={behindSlides[subSlideIdx].image} 
-                              alt={behindSlides[subSlideIdx].title} 
-                              className="w-full h-auto select-none block" 
-                            />
-                            <button 
-                              onClick={() => setSubSlideIdx((prev) => (prev - 1 + behindSlides.length) % behindSlides.length)}
-                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
-                              aria-label="이전 이미지"
-                            >
-                              <ChevronLeft className="w-4 h-4" />
-                            </button>
-                            <button 
-                              onClick={() => setSubSlideIdx((prev) => (prev + 1) % behindSlides.length)}
-                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/85 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
-                              aria-label="다음 이미지"
-                            >
-                              <ChevronRight className="w-4 h-4" />
-                            </button>
-                          </div>
-                          <div className="flex flex-col items-center gap-2">
-                            <p className="text-[11px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">
-                              {behindSlides[subSlideIdx].title}
-                            </p>
-                            <div className="flex gap-1.5 justify-center">
-                              {behindSlides.map((_, sIdx) => (
-                                <span 
-                                  key={sIdx} 
-                                  onClick={() => setSubSlideIdx(sIdx)}
-                                  className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
-                                    subSlideIdx === sIdx ? 'bg-purple-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
-                                  }`} 
-                                />
-                              ))}
-                            </div>
-                          </div>
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center bg-slate-950/80 p-3 rounded-lg border border-slate-800 text-xs">
+                          <span className="text-slate-400 uppercase font-mono">Profile Page Bounce Rate</span>
+                          <span className="text-rose-400 font-bold font-mono">88% ➡️ 21%</span>
                         </div>
-
-                        {/* PC/Desktop View (Stacked List) */}
-                        <div className="hidden lg:flex lg:flex-col lg:gap-4">
-                          {behindSlides.map((slide, idx) => (
-                            <div key={idx} className="space-y-2">
-                              <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
-                                <img 
-                                  src={slide.image} 
-                                  alt={slide.title} 
-                                  className="w-full h-auto select-none block" 
-                                />
-                              </div>
-                              <p className="text-[11px] font-semibold text-purple-300 text-center tracking-tight leading-relaxed">
-                                {slide.title}
-                              </p>
-                            </div>
-                          ))}
+                        <div className="flex justify-between items-center bg-slate-950/80 p-3 rounded-lg border border-slate-800 text-xs">
+                          <span className="text-slate-400 uppercase font-mono">Micro-messaging refinement</span>
+                          <span className="text-emerald-400 font-bold font-mono">4-Stage Copy Washing</span>
                         </div>
-                      </>
+                        <div className="flex justify-between items-center bg-slate-950/80 p-3 rounded-lg border border-slate-800 text-xs">
+                          <span className="text-slate-400 uppercase font-mono">Optimal Posting Hour</span>
+                          <span className="text-indigo-400 font-bold font-mono">Friday 23:00 (+41%)</span>
+                        </div>
+                      </div>
                     )}
 
                     {curProject.id === "tlab-reels" && (
-                      <>
-                        {/* Mobile/Tablet View (Carousel Slider) */}
-                        <div className="lg:hidden space-y-4">
-                          <div className="relative group/slide overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40 shadow-inner">
-                            <img 
-                              src={tlabSlides[subSlideIdx].image} 
-                              alt={tlabSlides[subSlideIdx].title} 
-                              className="w-full h-auto select-none block" 
-                            />
-                            <button 
-                              onClick={() => setSubSlideIdx((prev) => (prev - 1 + tlabSlides.length) % tlabSlides.length)}
-                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
-                              aria-label="이전 이미지"
-                            >
-                              <ChevronLeft className="w-4 h-4" />
-                            </button>
-                            <button 
-                              onClick={() => setSubSlideIdx((prev) => (prev + 1) % tlabSlides.length)}
-                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 text-white flex items-center justify-center border border-slate-800 backdrop-blur-sm transition-opacity cursor-pointer z-10"
-                              aria-label="다음 이미지"
-                            >
-                              <ChevronRight className="w-4 h-4" />
-                            </button>
+                      <div className="space-y-3">
+                        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-pink-950 text-pink-400 border border-pink-900 flex items-center justify-center">
+                            <span className="font-title font-extrabold text-sm">TL</span>
                           </div>
-                          <div className="flex flex-col items-center gap-2">
-                            <p className="text-[11px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">
-                              {tlabSlides[subSlideIdx].title}
-                            </p>
-                            <div className="flex gap-1.5 justify-center">
-                              {tlabSlides.map((_, sIdx) => (
-                                <span 
-                                  key={sIdx} 
-                                  onClick={() => setSubSlideIdx(sIdx)}
-                                  className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
-                                    subSlideIdx === sIdx ? 'bg-pink-400 scale-110' : 'bg-slate-700 hover:bg-slate-500'
-                                  }`} 
-                                />
-                              ))}
-                            </div>
+                          <div>
+                            <p className="text-xs font-bold font-sans text-slate-100">"얘들아 선배가 폰트 이거 쓰랩"</p>
+                            <p className="text-[10px] text-slate-400 font-sans">대학생 공감 빌드업 상황극 숏폼 릴스</p>
                           </div>
                         </div>
-
-                        {/* PC/Desktop View (Stacked List) */}
-                        <div className="hidden lg:flex lg:flex-col lg:gap-4">
-                          {tlabSlides.map((slide, idx) => (
-                            <div key={idx} className="space-y-2">
-                              <div className="w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950/40 shadow-inner">
-                                <img 
-                                  src={slide.image} 
-                                  alt={slide.title} 
-                                  className="w-full h-auto select-none block" 
-                                />
-                              </div>
-                              <p className="text-[11px] font-semibold text-pink-300 text-center tracking-tight leading-relaxed">
-                                {slide.title}
-                              </p>
-                            </div>
-                          ))}
+                        <div className="grid grid-cols-2 gap-2 text-center">
+                          <div className="bg-slate-950 p-2 border border-slate-800 rounded font-mono">
+                            <p className="text-[9px] text-slate-500">PLAYBACKS</p>
+                            <p className="text-xs font-bold text-pink-400">2,000+ VIEWS</p>
+                          </div>
+                          <div className="bg-slate-950 p-2 border border-slate-800 rounded font-mono">
+                            <p className="text-[9px] text-slate-500">CONVERSION</p>
+                            <p className="text-xs font-bold text-slate-200">+20 FOLLOWER</p>
+                          </div>
                         </div>
-                      </>
+                      </div>
                     )}
 
                     {curProject.id === "catchme-exhibition" && (
-                      <>
-                        {/* Mobile/Tablet View (Tab Video Player) */}
-                        <div className="lg:hidden space-y-4">
-                          <div className="flex justify-center gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800">
-                            <button
-                              onClick={() => setSubSlideIdx(0)}
-                              className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
-                                subSlideIdx === 0 
-                                  ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
-                                  : 'text-slate-400 hover:text-slate-200'
-                              }`}
-                            >
-                              메인 홍보 영상
-                            </button>
-                            <button
-                              onClick={() => setSubSlideIdx(1)}
-                              className={`text-[10px] md:text-xs font-bold py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
-                                subSlideIdx === 1 
-                                  ? 'bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 shadow-sm' 
-                                  : 'text-slate-400 hover:text-slate-200'
-                              }`}
-                            >
-                              에필로그 인터뷰
-                            </button>
-                          </div>
-
-                          {subSlideIdx === 0 ? (
-                            <div className="space-y-2">
-                              <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                                <iframe
-                                  className="w-full h-full"
-                                  src="https://www.youtube.com/embed/pb_rGpxlAL8"
-                                  title="제37회 애드파워 전시회 『캐취미 : 취미를 쫓아 사라진 나를 찾다』"
-                                  frameBorder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                  allowFullScreen
-                                ></iframe>
-                              </div>
-                              <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
-                                🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』
-                              </p>
-                            </div>
-                          ) : (
-                            <div className="space-y-2">
-                              <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                                <iframe
-                                  className="w-full h-full"
-                                  src="https://www.youtube.com/embed/nkl38NVh6nM"
-                                  title="『캐취미 Epilogue : 거리 너머의 두번째 이야기』"
-                                  frameBorder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                  allowFullScreen
-                                ></iframe>
-                              </div>
-                              <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
-                                🎬 에필로그 인터뷰: 『캐취미 Epilogue : 거리 너머의 두번째 이야기』
-                              </p>
-                            </div>
-                          )}
+                      <div className="space-y-3">
+                        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center space-y-2">
+                          <span className="text-xs font-title font-extrabold text-indigo-400 tracking-wider">제37회 애드파워 정기전시회 </span>
+                          <span className="text-xl font-black font-title text-slate-100 tracking-tight">『캐취미』</span>
+                          <span className="text-[10px] text-slate-500">- 취미를 쫓아 사라진 나를 찾는 영상 서사 -</span>
                         </div>
-
-                        {/* PC/Desktop View (Stacked Videos) */}
-                        <div className="hidden lg:flex lg:flex-col lg:gap-5">
-                          <div className="space-y-2">
-                            <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                              <iframe
-                                className="w-full h-full"
-                                src="https://www.youtube.com/embed/pb_rGpxlAL8"
-                                title="제37회 애드파워 전시회 『캐취미 : 취미를 쫓아 사라진 나를 찾다』"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowFullScreen
-                              ></iframe>
-                            </div>
-                            <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
-                              🎥 메인 홍보 영상: 『캐취미 : 취미를 쫓아 사라진 나를 찾다』
-                            </p>
+                        <div className="grid grid-cols-2 gap-2 text-center">
+                          <div className="bg-slate-800/60 p-2.5 rounded text-xs">
+                            <p className="text-slate-400 text-[9px] font-mono">SATISFACTION</p>
+                            <p className="font-bold text-emerald-400">95% RATING</p>
                           </div>
-                          <div className="space-y-2 pt-2">
-                            <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                              <iframe
-                                className="w-full h-full"
-                                src="https://www.youtube.com/embed/nkl38NVh6nM"
-                                title="『캐취미 Epilogue : 거리 너머의 두번째 이야기』"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowFullScreen
-                              ></iframe>
-                            </div>
-                            <p className="text-[10px] font-semibold text-emerald-300 text-center tracking-tight leading-relaxed">
-                              🎬 에필로그 인터뷰: 『캐취미 Epilogue : 거리 너머의 두번째 이야기』
-                            </p>
+                          <div className="bg-slate-800/60 p-2.5 rounded text-xs">
+                            <p className="text-slate-400 text-[9px] font-mono">VIRAL TRAFFIC</p>
+                            <p className="font-bold text-slate-100">11,000+ PLAYS</p>
                           </div>
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
 
@@ -942,51 +646,48 @@ export default function App() {
 
                 </div>
 
+                {/* Slideshow manual controls */}
+                <div className="flex items-center justify-between gap-4 bg-slate-100 p-2 rounded-xl border border-slate-200">
+                  <button 
+                    onClick={prevProject} 
+                    className="p-2 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center"
+                    aria-label="Previous project"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+
+                  <div className="flex gap-1.5 justify-center">
+                    {projectsData.map((_, dotIdx) => (
+                      <span 
+                        key={dotIdx} 
+                        onClick={() => setActiveProjectIdx(dotIdx)}
+                        className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${
+                          activeProjectIdx === dotIdx ? `bg-slate-900 scale-110` : 'bg-slate-300 hover:bg-slate-400'
+                        }`} 
+                      />
+                    ))}
+                  </div>
+
+                  <button 
+                    onClick={nextProject} 
+                    className="p-2 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center"
+                    aria-label="Next project"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+
               </div>
 
-            </div>
-
-            {/* Slideshow manual controls */}
-            <div className="flex items-center justify-between gap-4 bg-slate-100/85 p-4 border-t border-slate-200/60 rounded-b-2xl">
-              <button 
-                onClick={prevProject} 
-                className="p-2.5 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center shadow-sm"
-                aria-label="Previous project"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-
-              <div className="flex gap-1.5 justify-center">
-                {projectsData.map((_, dotIdx) => (
-                  <span 
-                    key={dotIdx} 
-                    onClick={() => {
-                      setActiveProjectIdx(dotIdx);
-                      setSubSlideIdx(0);
-                    }}
-                    className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${
-                      activeProjectIdx === dotIdx ? `bg-slate-900 scale-110` : 'bg-slate-300 hover:bg-slate-400'
-                    }`} 
-                  />
-                ))}
-              </div>
-
-              <button 
-                onClick={nextProject} 
-                className="p-2.5 border border-slate-300 hover:border-slate-400 hover:bg-slate-50 bg-white rounded-lg transition-all text-slate-700 select-none cursor-pointer flex items-center justify-center shadow-sm"
-                aria-label="Next project"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* 4. PRODUCTION ENGINE (영상제작 역량) */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-slate-50 border-b border-slate-200/50" id="video-skills">
+      <section className="py-20 bg-slate-50 border-b border-slate-200/50" id="video-skills">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center space-y-3 mb-8 sm:mb-12 md:mb-16">
+          <div className="text-center space-y-3 mb-16">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400">PRODUCTION</span>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-title">외주 영상 및 영상 기획・총괄 디렉팅</h2>
             <p className="text-sm text-slate-600 font-sans max-w-xl mx-auto leading-relaxed">
@@ -994,9 +695,9 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {outsourcingVideos.map((vid) => {
-              const youtubeId = vid.url?.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/)?.[1];
+              const youtubeId = vid.url?.match(/youtu\.be\/([^?&]+)/)?.[1];
               const thumbBg = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
               const thumbnailClass = "w-full aspect-[16/10] bg-slate-950 rounded-xl relative overflow-hidden flex flex-col items-center justify-center p-4 border border-slate-900 block";
               const thumbnailInner = (
@@ -1030,7 +731,7 @@ export default function App() {
               return (
                 <div
                   key={vid.id}
-                  className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-lg transition-all space-y-4 group flex flex-col justify-between min-w-[280px] sm:min-w-[320px] md:min-w-0 flex-1 md:flex-initial shrink-0 snap-start"
+                  className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-lg transition-all space-y-4 group flex flex-col justify-between"
                 >
                   <div className="space-y-4">
                     {vid.url ? (
@@ -1084,14 +785,14 @@ export default function App() {
       </section>
 
       {/* 5. RESUME & PROFILE DETAILS */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-200/50" id="resume">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <section className="py-20 bg-white border-b border-slate-200/50" id="resume">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Left Area: Brief bio & tools */}
           <div className="lg:col-span-4 space-y-8">
             <div className="space-y-4">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-400">QUALIFICATIONS</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-title">보유 핵심 역량</h2>
+              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-title">보유 핵심 역량</h2>
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-sans font-light">
                 설득력 있는 크리에이티브 기획에 자발적 가설 수립 및 정량 지표 분석(GA4) 감각을 융합하여 기획과 실행의 공백을 채웁니다.
               </p>
@@ -1115,28 +816,6 @@ export default function App() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* [왜 이 툴을 썼는가?] Section */}
-            <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3">
-              <p className="text-[10px] font-extrabold font-mono text-slate-400 uppercase tracking-widest">[왜 이 툴을 썼는가?]</p>
-              <p className="text-[11px] font-mono text-slate-400 leading-normal">
-                Used Tools: Notion, ChatGPT, Photoshop, Figma, Premiere Pro, Claude, Google Analytics 4
-              </p>
-              <div className="space-y-2 text-xs text-slate-600 font-sans leading-relaxed">
-                <div>
-                  <span className="font-bold text-slate-800">[기획/전략] ChatGPT/Claude:</span> <br/>
-                  데이터 분석 및 타깃 페르소나 인사이트 도출로 기획 논리 강화
-                </div>
-                <div className="border-t border-slate-200/60 pt-2">
-                  <span className="font-bold text-slate-800">[제작/디자인] PS/Figma/Premiere:</span> <br/>
-                  커뮤니케이션 비용 최소화 및 제작물 퀄리티 컨트롤
-                </div>
-                <div className="border-t border-slate-200/60 pt-2">
-                  <span className="font-bold text-slate-800">[데이터/성과] GA4:</span> <br/>
-                  유저 여정 추적 및 퍼포먼스 수치 검증
-                </div>
-              </div>
             </div>
 
             {/* Certifications Block */}
@@ -1220,12 +899,12 @@ export default function App() {
       </section>
 
       {/* 6. CONTACT SECTION */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-slate-900 text-slate-300 border-t border-slate-900" id="contact">
+      <section className="py-20 bg-slate-900 text-slate-300 border-t border-slate-900" id="contact">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
           
           <div className="space-y-4">
             <span className="text-xs font-mono uppercase tracking-widest text-indigo-400">GET IN TOUCH</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-title">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-title">
               인식을 바꾸는 지점을 함께 설계해 보세요.
             </h2>
             <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
