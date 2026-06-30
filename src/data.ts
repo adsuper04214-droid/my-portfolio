@@ -192,9 +192,9 @@ export const outsourcingVideos: {
   },
   {
     id: "forest-story",
-    title: "다큐멘터리 숲스토리 (외주 필름)",
+    title: "다큐멘터리 숲스토리",
     period: "2025",
-    role: "외주 필름 기획·촬영·편집",
+    role: "기획·촬영·편집",
     thumbnailText: "다큐멘터리 숲스토리",
     url: "https://youtu.be/DWJ2YePkQ-Y"
   },
